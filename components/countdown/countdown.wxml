@@ -1,0 +1,1 @@
+<view class="time"><text class="time" wx:if="{{showWords}}">剩余充电时间：</text>{{time}}</view>

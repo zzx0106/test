@@ -1,0 +1,116 @@
+<view class="page h-100 {{color==0?'version-yellow':''}}">
+    <view class="shadow" wx:if="{{showShadow}}"></view>
+    <!-- <view class="navigation t-center">
+        <view class="back-bn" bindtap="goBack">
+            <cover-image src="../../common/img/icon_home@3x.png" />
+        </view>
+        <text>{{dataInfo.shopInfo.shop_name}}</text>
+    </view> -->
+    <navbar showHome="{{true}}" noBorder="{{true}}" noBackground="{{true}}" title="超盟商旅"></navbar>
+    <scroll-view scroll-y="{{isScroll}}" class="scroll-box h-100">
+        <view class="header">
+            <view class="shopMsg flex vertical justify">
+                <view class="avatar f-ft">
+                    <image src="{{myAvatar}}" class="avatar" />
+                </view>
+                <view class="flex f-content f-column shopContent">
+                    <text class="c-fff">ID: {{dataInfo.userInfo.cid}}</text>
+                    <view class="c-fff flex justify">
+                        <view class="scan" bindtap="scanInfo">查看个人信息 >></view>
+                        <view class="virtual-goods lh-30 f-ht c-fff" bindtap="charge">
+                            <view class="ic ic-charge">
+                                <image src="../../common/img/icon_pay_energy@3x.png" />
+                            </view>
+                            充电
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <!-- 一行布局 -->
+        <view class="content layoutOne" wx:if="{{layout =='0'}}">
+            <view class="card-group">
+                <view class="card flex bg-fff" wx:for="{{dataInfo.goodsInfo.info}}" wx:key="index" bindtap="scanDetail" data-item="{{item}}">
+                    <view class="left-img">
+                        <image src="{{item.imgs[0]}}" lazy-load="true" />
+                    </view>
+                    <view class="goods-msg f-content">
+                        <view class="num">
+                            NO:{{item.cell_name}}
+                            <view class="bg" wx:if="{{color==1}}">
+                                <image src="../../common/img/icon_home_content_2@3x.png" />
+                            </view>
+                            <view class="bg" wx:if="{{color==0}}">
+                                <image src="../../common/img/icon_home_content_1@3x.png" />
+                            </view>
+                        </view>
+                        <view class="goods-name over-multiple">{{item.goods_name}}</view>
+                        <view class="goods-des">{{item.goods_spec}}</view>
+                        <view class="fs-16 price">
+                            <text class="c-charge fs-18">{{item.moneyInt}}</text>
+                            <text class="c-charge fs-14">{{item.moneyCharge}}</text>
+                        </view>
+                        <view class="buy-bn t-center {{item.sellout_status == 2?'sell-out':''}}">
+                            {{item.sellout_status == 2?'售罄':'购买'}}
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <!-- 两行布局 -->
+        <view class="content layoutTwo" wx:if="{{layout == '1'}}">
+            <view class="flex justify item-group f-wrap">
+                <view class="item" wx:for="{{dataInfo.goodsInfo.info}}" wx:key="index" bindtap="scanDetail" data-item="{{item}}">
+                    <view class="goods-msg bg-fff">
+                        <view class="goods-img">
+                            <image mode="widthFix" src="{{item.imgs[0]}}" lazy-load="true" />
+                        </view>
+                        <view class="num">No:{{item.cell_name}}</view>
+                        <view class="horizontal-line" wx:if="{{color==1}}">
+                            <image src="../../common/img/image_line_home_2.png" />
+                        </view>
+                        <view class="horizontal-line" wx:if="{{color==0}}">
+                            <image src="../../common/img/image_line_home_1.png" />
+                        </view>
+                        <view class="goods-name t-center c-000">{{item.goods_name}}</view>
+                    </view>
+                    <view class="pay-msg-box flex">
+                        <view class="l-46 flex bottom fs-16 f-content">
+                            <text class="money-l" data-money="item.price">
+                                {{item.moneyInt}}
+                            </text>
+                            <text class="money-s" data-money="item.price">
+                                {{item.moneyCharge}}
+                            </text>
+                        </view>
+                        <view class="left-border f-ht {{item.sellout_status == 2?'sell-out':''}}">
+                            {{item.sellout_status==2?'售罄':'购买'}}
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+    <!-- 充电模块 -->
+    <view class="charge-box" wx:if="{{showCharge}}">
+        <view class='flex f-end c-fff fs-18' bindtap="close">
+            <view class="t-right close">×</view>
+        </view>
+        <view class="flex vertical horizontal cm-border section1">
+            <view class="ic-charge">
+                <image src="../../common/img/icon_pay_energy@3x.png" />
+            </view>
+            <view>
+                <view class="money">
+                    <text>{{dataInfo.chargeInfo.price}}</text>
+                    元
+                    <view>可在本设备充电{{dataInfo.chargeInfo.minutes}}分钟</view>
+                </view>
+            </view>
+        </view>
+        <view class="line-s"></view>
+        <view class="pay">
+            <view class="bn" bindtap="buy">去支付</view>
+        </view>
+    </view>
+</view>

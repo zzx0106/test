@@ -1,0 +1,14 @@
+<view  style="height:{{titleBarHeight}}px;padding-top:{{statusBarHeight}}px">
+  <view class="header {{!noBackground ? 'background' : ''}} {{!noBorder ? 'border-bottom' : ''}} {{white ? 'background-white' : ''}}" style="height:{{titleBarHeight}}px;padding-top:{{statusBarHeight}}px">
+    <view class="title-bar" bind:tap="headerGoTo">
+      <view wx:if="{{showBack && titleBarHeight > 0}}" class="back">
+        <image src="../../common/img/icon_msg_return@3x.png" />
+      </view>
+      <!-- <view class="line"></view> -->
+      <view wx:if="{{showHome && titleBarHeight > 0}}" class="home">
+        <image src="../../common/img/icon_home@3x.png" />
+      </view>
+    </view>
+    <view wx:if="{{titleBarHeight > 0}}" class="header-title">{{title}}</view>
+  </view>
+</view>

@@ -1,0 +1,49 @@
+<view class="page h-100 bg-main {{color==0?'version-yellow':''}}">
+    <!-- <view class="navigation t-center" style='height: {{height}}px;'>
+        <text>超盟商旅</text>
+    </view> -->
+    <navbar showBack="{{showBack}}" noBackground="{{true}}" title="超盟商旅"></navbar>
+    <view class="header t-center">
+        <view class="avatar">
+            <image src="{{myAvatar}}" alt="" />
+        </view>
+        <text class="nickname">用户{{myInfo.nickname}}</text>
+        <input wx:if="{{ifNoPms}}" class="input-getphone" type="number" placeholder="手动输入手机号码" />
+        <view class="phone" wx:if="{{(myInfo.mobile || phone)}}">{{myInfo.mobile || phone}}</view>
+        <button wx:if="{{!(myInfo.mobile || phone)}}" class="phone btn-getphone" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+            点击获取用户手机号
+        </button>
+    </view>
+    <view class="main-content">
+        <view class="menu-group">
+            <view class="menu bg-fff flex cm-select lh-50 vertical" bindtap="scan">
+                <view class="icon">
+                    <image class="ic-consult" src="../../common/img/icon_myself_scan_2@3x.png" wx:if="{{color === 1}}" />
+                    <image class="ic-consult" src="../../common/img/icon_myself_scan_1@3x.png" wx:if="{{color === 0}}" />
+                </view>
+                <view class="c-main">
+                    扫码
+                    <text class="c-999 fs-12">(扫货柜机二维码)</text>
+                </view>
+            </view>
+        </view>
+        <view class="menu-group">
+            <view class="menu bg-fff flex cm-select lh-50 vertical" bindtap="jump" data-url="myOrders">
+                <view class="icon">
+                    <image class="ic-order" src="../../common/img/icon_myself_order_2@3x.png" wx:if="{{color === 1}}" />
+                    <image class="ic-order" src="../../common/img/icon_myself_order_1@3x.png" wx:if="{{color === 0}}" />
+                </view>
+                <text class="c-main">我的订单</text>
+            </view>
+        </view>
+        <view class="menu-group">
+            <view class="menu bg-fff flex cm-select lh-50 vertical" bindtap="jump" data-url="consult">
+                <view class="icon">
+                    <image class="ic-consult" src="../../common/img/icon_myself_tickling_2@3x.png" wx:if="{{color === 1}}" />
+                    <image class="ic-consult" src="../../common/img/icon_myself_tickling_1@3x.png" wx:if="{{color === 0}}" />
+                </view>
+                <text class="c-main">咨询反馈</text>
+            </view>
+        </view>
+    </view>
+</view>

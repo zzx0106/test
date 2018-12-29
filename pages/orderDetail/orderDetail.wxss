@@ -1,0 +1,229 @@
+.page {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.page .navigation {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-top: 40rpx;
+  line-height: 88rpx;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 128rpx;
+  background: #F2F2F2;
+  border-bottom: 1px solid #DADADA;
+}
+
+.page .navigation .back-bn {
+  position: absolute;
+  left: 20rpx;
+  bottom: 0rpx;
+  height: 77rpx;
+  padding: 0 10rpx;
+  vertical-align: middle;
+}
+
+.page .navigation .back-bn image {
+  width: 20rpx;
+  height: 32rpx;
+}
+
+.page .navigation text {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.page .goods-msg {
+  border-radius: 12rpx;
+  margin: 24rpx;
+}
+
+.page .goods-msg .head {
+  height: 230rpx;
+  border-top-left-radius: 12rpx;
+  border-top-right-radius: 12rpx;
+  background: url("https://res.cmfspay.com/static/travel/img/image_myself_backgrond_2.jpg") center center no-repeat;
+  background-size: 100% 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 80rpx 66rpx;
+  margin-top: 24rpx;
+}
+
+.page .goods-msg .head image {
+  width: 68rpx;
+  height: 68rpx;
+}
+
+.page .goods-msg .head .status {
+  margin-right: 30rpx;
+}
+
+.page .goods-msg .head .c-fe {
+  color: #fefefe;
+}
+
+.page .goods-msg .content {
+  background: #fff;
+  padding: 20rpx;
+  border-bottom-left-radius: 12rpx;
+  border-bottom-right-radius: 12rpx;
+}
+
+.page .goods-msg .content .title {
+  padding-bottom: 24rpx;
+}
+
+.page .goods-msg .content .title .avatar {
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 10rpx;
+  font-size: 26rpx;
+}
+
+.page .goods-msg .content .title .avatar image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.page .goods-msg .content .title .shopName {
+  color: #414141;
+  font-size: 26rpx;
+  font-family: 'PingFang-SC-Medium';
+}
+
+.page .goods-msg .content .title .shopNum {
+  color: #919191;
+  font-size: 24rpx;
+  margin-top: 12rpx;
+}
+
+.page .goods-msg .content .proDetail {
+  font-size: 26rpx;
+  color: #262626;
+  padding: 20rpx 0;
+}
+
+.page .goods-msg .content .proDetail .goods-img {
+  width: 180rpx;
+  height: 180rpx;
+}
+
+.page .goods-msg .content .proDetail .goods-img image {
+  width: 100%;
+  height: 100%;
+  border: 1rpx solid #f5f5f5;
+  border-radius: 6rpx;
+}
+
+.page .goods-msg .content .proDetail .goodsName {
+  position: relative;
+  margin-left: 20rpx;
+}
+
+.page .goods-msg .content .proDetail .goodsName .goods-des {
+  color: #737373;
+  font-size: 24rpx;
+  margin-top: 10rpx;
+}
+
+.page .goods-msg .content .chargeDes {
+  line-height: 32rpx;
+  padding-top: 20rpx;
+}
+
+.page .goods-msg .content .chargeDes .time {
+  color: #b2b2b2;
+}
+
+.page .goods-msg .content .chargeDes .c-charge {
+  color: #e93c3a;
+}
+
+.page .msg-box {
+  margin-top: 24rpx;
+}
+
+.page .order-msg {
+  padding: 0 20rpx 20rpx;
+  margin: 0 24rpx;
+  background: #fff;
+  border-radius: 12rpx;
+}
+
+.page .order-msg .title {
+  position: relative;
+  font-size: 28rpx;
+  color: #414141;
+  padding: 20rpx 0 20rpx 20rpx;
+}
+
+.page .order-msg .title:before {
+  display: block;
+  content: "";
+  position: absolute;
+  top: 24rpx;
+  left: 0;
+  width: 4rpx;
+  height: 30rpx;
+  background: #f3507e;
+}
+
+.page .order-msg .item {
+  padding: 0 12rpx;
+  font-size: 26rpx;
+  line-height: 60rpx;
+}
+
+.page .order-msg .item .item-title {
+  margin-right: 20rpx;
+  color: #262626;
+}
+
+.page .order-msg .item .item-content {
+  font-size: 24rpx;
+  color: #737373;
+}
+
+.page .order-msg .item .item-operate {
+  color: #e94f3a;
+}
+
+.page .footer {
+  width: 100%;
+  height: 96rpx;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-right: 44rpx;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  padding-left: 20rpx;
+}
+
+.page .footer .bn {
+  background: transparent;
+  border: 1rpx solid #919191;
+  font-size: 26rpx;
+  padding: 12rpx 24rpx;
+  color: #414141;
+  border-radius: 8rpx;
+}
+
+.page .fs-16 {
+  font-size: 32rpx;
+}
+
+.page.version-yellow .goods-msg .head {
+  background: url("https://res.cmfspay.com/static/travel/img/image_myself_backgrond_1.jpg") center center no-repeat;
+  background-size: 100% 100%;
+}
+
+.page.version-yellow .order-msg .title:before {
+  background: #ffd21e;
+}

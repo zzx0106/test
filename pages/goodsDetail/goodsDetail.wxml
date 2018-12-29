@@ -1,0 +1,101 @@
+<view class="page h-100 {{color==0?'version-yellow':''}}">
+    <!-- <view class="navigation t-center">
+        <view class="back-bn" bindtap="goBack">
+            <image src="../../common/img/icon_msg_return@3x.png" />
+        </view>
+        <text>商品详情</text>
+    </view> -->
+    <navbar showBack="true" title="我的订单"></navbar>
+    <view class="{{showNav ? 'wrap-big' : 'padding-top24'}}" style="height:100%;">
+        <swiper indicator-dots="{{false}}" autoplay="{{false}}" duration="{{500}}" vertical="{{true}}" class="page-swiper" current="{{currentPage}}" bindchange="swiperPageChange">
+            <block>
+                <swiper-item class="{{showNav?'isBlank':''}}">
+                    <view class="card bg-fff">
+                        <view class="wrap">
+                            <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current="{{currentSwiper}}" bindchange="swiperChange">
+                                <block wx:for="{{detailInfo.goodsInfo.imgs}}" wx:key="index">
+                                    <swiper-item>
+                                        <image src="{{item}}" class="slide-image" width="355" height="150" />
+                                    </swiper-item>
+                                </block>
+                            </swiper>
+                            <!-- 重置小圆点的样式 -->
+                            <view class="dots">
+                                <block wx:for="{{detailInfo.goodsInfo.imgs}}" wx:key="index">
+                                    <view class="dot{{index == currentSwiper ? ' active' : ''}}"></view>
+                                </block>
+                            </view>
+                        </view>
+                        <view class="num t-center flex vertical">
+                            <view class="left-line f-content">
+                                <image src="../../common/img/image_line_l.png" />
+                            </view>
+                            <view class="f-content">货柜编号No:{{detailInfo.goodsInfo.cell_name}}</view>
+                            <view class="right-line f-content">
+                                <image src="../../common/img/image_line_r.png" />
+                            </view>
+                        </view>
+                        <view class="pdd-lr-10">
+                            <view class="price">
+                                <text class="c-charge fs-21">{{moneyInt}}</text>
+                                <text class="c-charge fs-14">{{moneyCharge}}</text>
+                            </view>
+                            <view class="goods-name">{{detailInfo.goodsInfo.goods_name}}</view>
+                            <view class="goods-des">{{detailInfo.goodsInfo.goods_spec}}</view>
+                        </view>
+                    </view>
+                    <view class="t-center c-999 lh-30" style="margin-top:20rpx;font-size:24rpx;" wx:if="{{!showNav}}">
+                        向上滑动,查看更多
+                        <image class="ic-top" src="../../common/img/icon_@3x.png" />
+                    </view>
+                </swiper-item>
+            </block>
+            <block>
+                <swiper-item class="{{showNav?'isBlank':''}}" class="detail-swiper">
+                    <scroll-view scroll-y style="height:100%;">
+                        <view class="card card-word bg-fff">
+                            <view class="lh-40 title cm-border cm-border-bottom">商品信息</view>
+                            <view class="content">
+                                <view class="menu lh-30 flex">
+                                    <view class="f-ft c-main">商品编号：</view>
+                                    <view class="f-content c-73">
+                                        {{detailInfo.goodsInfo.goods_id}}
+                                    </view>
+                                </view>
+                                <view class="menu lh-30 flex">
+                                    <view class="f-ft c-main">商品规格：</view>
+                                    <view class="f-content c-73">
+                                        {{detailInfo.goodsInfo.goods_spec}}
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="t-center detail-img" style="margin-top:24rpx;">
+                            <image src="{{detailInfo.goodsInfo.imgs[0]}}" />
+                            <image src="{{detailInfo.goodsInfo.imgs[0]}}" />
+                        </view>
+                    </scroll-view>
+                </swiper-item>
+            </block>
+        </swiper>
+        <view class="nav lh-40 bg-fff" wx:if="{{showNav}}">
+            <view class="wrap-center flex justify">
+                <view class="menu {{currentPage === 0?'c-active':''}}" bindtap="scanGoods">商品</view>
+                <view class="menu {{currentPage === 1?'c-active':''}}" bindtap="scanDetail">
+                    详情
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="footer flex cm-border cm-border-top">
+        <view class="price-num f-content">
+            实付金额：
+            <text class="c-charge fs-16">{{moneyInt}}</text>
+            <text class="c-charge fs-14">{{moneyCharge}}</text>
+        </view>
+        <view class="f-ht buy {{detailInfo.goodsInfo.sellout_status === 2?'sell-out':''}}" bindtap="buy">
+            {{detailInfo.goodsInfo.sellout_status === 2?'售罄':'立即购买'}}
+        </view>
+    </view>
+</view>
+<!-- </view> -->

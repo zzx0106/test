@@ -1,0 +1,35 @@
+<view class="page h-100 bg-main">
+    <!-- <view class="navigation t-center">
+        <view class="back-bn" bindtap="goBack">
+            <image src="../../common/img/icon_msg_return@3x.png" />
+        </view>
+        <text>订单结算</text>
+    </view> -->
+    <navbar showBack="{{true}}" white="{{true}}" title="备注"></navbar>
+    <view class="shop-car-remarks-body">
+        <view class="say-something">
+            <textarea class="say" placeholder="可输入备注，最多50字~" maxlength="500" placeholder-class="noData" bindinput="emitArea"></textarea>
+            <view class="count">{{len}}/50</view>
+        </view>
+        <view class="flex f-end">
+            <view class="sub-bn {{(len >= 5) ? 'isBlack' : ''}}" bindtap="submit">确定</view>
+        </view>
+    </view>
+</view>
+<wxs module="shop_car_total">
+	function computed(goodsList){
+	    var totalNumber = 0;
+        var totalMoney = 0;
+        goodsList.forEach(function (goods, index) {
+            goods.foods.forEach(function (food, _index) {
+                if (food.num) {
+                    totalNumber += food.num;
+                    totalMoney += food.num * food.price;
+                }
+            });
+        });
+        totalMoney = totalMoney.toFixed(2); // 处理小数精度问题
+		return {totalNumber, totalMoney}
+	}
+	module.exports.computed = computed
+</wxs>

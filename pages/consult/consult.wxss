@@ -1,0 +1,95 @@
+.page {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.page h4 {
+  font-weight: normal;
+}
+
+.page .menu {
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+}
+
+.page .menu-group {
+  margin: 24rpx 24rpx 0 24rpx;
+}
+
+.page .pdd-tb-15 {
+  padding: 30rpx 0;
+}
+
+.page .pdd-lr-10 {
+  padding: 0 20rpx;
+}
+
+.page .mrg-tb-15 {
+  margin: 30rpx 0;
+}
+
+.page .noData {
+  color: #B3B3B3;
+}
+
+.page .reback {
+  margin-top: 30rpx;
+  border-radius: 12rpx;
+  padding-bottom: 32rpx;
+  margin-left: 24rpx;
+  margin-right: 24rpx;
+}
+
+.page .reback .say-something {
+  padding-bottom: 30rpx;
+  position: relative;
+}
+
+.page .reback .say-something .count {
+  position: absolute;
+  bottom: 46rpx;
+  right: 20rpx;
+  color: #b3b3b3;
+  font-size: 24rpx;
+}
+
+.page .reback .say-something .say {
+  width: 100%;
+  height: 350rpx;
+  border: 1rpx solid #b3b3b3;
+  border-radius: 6rpx;
+  font-size: 26rpx;
+  color: #3e3e3e;
+  padding: 20rpx;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+  word-break: break-all;
+}
+
+.page .reback .phone .phone-txt {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0rpx 22rpx;
+  height: 88rpx;
+  font-size: 26rpx;
+  color: #3e3e3e;
+  border: 1rpx solid #b3b3b3;
+  border-radius: 6rpx;
+}
+
+.page .reback .sub-bn {
+  font-size: 26rpx;
+  color: #b3b3b3;
+  text-align: center;
+  line-height: 50rpx;
+  height: 50rpx;
+  border: 1rpx solid gray;
+  border-radius: 8rpx;
+  padding: 0 50rpx;
+}
+
+.page .reback .sub-bn.isBlack {
+  color: #414141;
+}

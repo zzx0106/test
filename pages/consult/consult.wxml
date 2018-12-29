@@ -1,0 +1,29 @@
+<view class="page h-100">
+     <!-- <view class="navigation t-center">
+        <view class="back-bn" bindtap="goBack">
+            <image src="../../common/img/icon_msg_return@3x.png" />
+        </view>
+        <text>咨询反馈</text>
+    </view> -->
+    <navbar showBack="true" title="咨询反馈"></navbar>
+
+    <view class="menu-group">
+        <view class="menu bg-fff flex cm-select vertical lh-50" bindtap="jump">
+            <view class="c-main">常见问题</view>
+        </view>
+    </view>
+    <view class="reback pdd-lr-10 bg-fff">
+        <view class="pdd-tb-15">意见反馈</view>
+        <view class="say-something cm-border cm-border-bottom">
+            <textarea class="say" placeholder="说点儿什么，让我们努力改进吧~（不少于5个字)" maxlength="500" placeholder-class="noData" bindinput="emitArea">
+            </textarea>
+            <view class="count">{{len}}/500</view>
+        </view>
+        <view class="phone mrg-tb-15">
+            <input type="number" placeholder="请留下您的手机号，以便我们回复您~" class="phone-txt" maxlength="11" placeholder-class="noData" bindinput='formatPhone' />
+        </view>
+        <view class="flex f-end">
+            <view class="sub-bn {{(len>=5&&phone)?'isBlack':''}}" bindtap="submit">提交</view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,131 @@
+.loading-gif {
+  width: 46rpx;
+  height: 8rpx;
+}
+
+.loading-wrap {
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.loading-wrap image {
+  background-color: transparent;
+}
+
+.border-bottom {
+  border-bottom: 1rpx solid #dadada;
+}
+
+.header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  top: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 99999;
+}
+
+.background {
+  background-color: #f2f2f2;
+}
+
+.background-white {
+  background: #fff !important;
+}
+
+.header .line {
+  border-left: 1rpx solid #d7d7d7;
+  height: 36rpx;
+}
+
+.header .back {
+  width: 100%;
+  max-width: 20rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.header .back image {
+  width: 19rpx;
+  height: 32rpx;
+}
+
+.header .home {
+  width: 100%;
+  max-width: 60rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.header .home image {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.header .title-bar {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  width: 60rpx;
+  height: 60rpx;
+  padding: 0 24rpx;
+}
+
+.header .header-title {
+  position: absolute;
+  left: 50%;
+  font-size: 36rpx;
+  font-weight: 500;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}

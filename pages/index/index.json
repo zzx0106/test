@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "超盟商旅",
+    "usingComponents": {
+        "navbar": "/components/navbar/index"
+    }
+}

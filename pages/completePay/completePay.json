@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "这是复制页面",
+    "usingComponents":{
+        "count-down":"/components/countdown/countdown",
+        "navbar": "/components/navbar/index"
+    }
+}

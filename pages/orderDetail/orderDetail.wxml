@@ -1,0 +1,68 @@
+<view class="page h-100">
+    <!-- <view class="navigation t-center">
+        <view class="back-bn" bindtap="goBack">
+            <image src="../../common/img/icon_msg_return@3x.png" />
+        </view>
+        <text>订单详情</text>
+    </view> -->
+    <navbar showBack="{{true}}" title="我的订单"></navbar>
+    <view class="goods-msg">
+        <view class="head flex vertical">
+            <view class="status">
+                <image src="../../common/img/icon_msg_success@2x.png" wx:if="{{detailInfo.order_status === '2'}}" />
+                <image src="../../common/img/icon_msg_los@3x.png" wx:if="{{detailInfo.order_status === '3' || detailInfo.order_status === '-1' || detailInfo.order_status === '4'}}" />
+                <image src="../../common/img/icon_msg_wait@3x.png" wx:if="{{detailInfo.order_status === '1' || detailInfo.order_status === '0'}}" />
+            </view>
+            <text class="fs-16 c-fe">{{detailInfo.real_status}}</text>
+        </view>
+        <view class="content">
+            <view class="title flex cm-border cm-border-bottom">
+                <view class="avatar">
+                    <image src="{{detailInfo.logo_img}}" />
+                </view>
+                <view>
+                    <view class="shopName">{{detailInfo.shop_name}}</view>
+                    <view class="shopNum">{{detailInfo.device_name}}为您服务</view>
+                </view>
+            </view>
+            <view class="proDetail flex justify cm-border cm-border-bottom vertical">
+                <view class="f-ft goods-img">
+                    <image src="{{detailInfo.goods_img}}" />
+                </view>
+                <view class="f-content goodsName">
+                    <text>{{detailInfo.goods_name}}</text>
+                    <view class="goods-des">
+                        {{detailInfo.goods_spec ? '商品规格：' +detailInfo.goods_spec : ''}}
+                    </view>
+                </view>
+            </view>
+            <view class="chargeDes flex f-end c-main fs-12">
+                实付金额：
+                <text class="c-charge fs-16 fwb">{{moneyInt}}</text>
+                <text class="c-charge fs-14 fwb">{{moneyCharge}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="order-msg">
+        <view class="title cm-border cm-border-bottom">订单信息</view>
+        <view class="order-detail">
+            <view class="item flex">
+                <view class="item-title f-ft">订单编号：</view>
+                <view class="item-content f-content">{{detailInfo.id}}</view>
+                <view class="item-operate tag-read f-ht" bindtap="copy" data-txt="复制内容">复制</view>
+            </view>
+            <view class="item flex">
+                <view class="item-title">下单时间：</view>
+                <view class="item-content">{{detailInfo.createtime}}</view>
+            </view>
+            <view class="item flex">
+                <view class="item-title">支付方式：</view>
+                <view class="item-content">{{detailInfo.pay_type}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="footer flex f-end vertical {{detailInfo.order_type === '2'?'justify':''}}">
+        <count-down remaintime="{{detailInfo.remaintime}}" wx:if="{{detailInfo.order_type === '2'}}" style="padding-left=20rpx;"></count-down>
+        <view class="bn" bindtap="deleteGoods" data-id="1">删除订单</view>
+    </view>
+</view>

@@ -1,0 +1,4 @@
+.time {
+  font-size: 22rpx;
+  color: #272727;
+}

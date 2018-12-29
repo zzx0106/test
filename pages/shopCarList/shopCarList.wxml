@@ -1,0 +1,71 @@
+<view class="page h-100 bg-main">
+    <!-- <view class="navigation t-center">
+        <view class="back-bn" bindtap="goBack">
+            <image src="../../common/img/icon_msg_return@3x.png" />
+        </view>
+        <text>订单结算</text>
+    </view> -->
+    <navbar showBack="{{true}}" white="{{true}}" title="商品信息"></navbar>
+    <view class="shop-car-list-body">
+        <view class="title">
+            <view class="text-title1">
+                <view class="icon-title">
+                    <image mode="widthFix" src="../../common/img/goods@2x.png" />
+                </view>
+                <view class="top-title">商品信息</view>
+            </view>
+            <view class="text-title2">
+                共{{shop_car_total.computed(submitGoods.menu_detail).totalNumber}}件
+            </view>
+        </view>
+        <view class="car-body">
+            <scroll-view class="scroll-view-box" scroll-y>
+                <block class="bottom-box-item" wx:for-item="goodsItem" wx:for="{{submitGoods.menu_detail}}" wx:key="{{index}}">
+                    <view class="good-one-list-item" wx:if="{{foodsItem.num}}" wx:for-item="foodsItem" wx:for="{{goodsItem.foods}}"  wx:key="{{goodsItem.id}}">
+                        <image lazy-load="{{true}}" class="item-img" mode="widthFix" src="{{foodsItem.imgs[0]}}" />
+                        <view class="right-item">
+                            <view>{{foodsItem.goods_name}}</view>
+                            <!-- <view >{{foodsItem.goods_desc}}</view> -->
+                            <view>单价 : ￥{{foodsItem.price}} / 份</view>
+                            <view>数量 : {{foodsItem.num}}</view>
+                        </view>
+                        <view class="text-price">
+                            ￥{{foodsItem.price * foodsItem.num}}
+                        </view>
+                    </view>
+                </block>
+            </scroll-view>
+        </view>
+    </view>
+</view>
+<wxs module="shop_car_total">
+	function computed(goodsList){
+	    var totalNumber = 0;
+        var totalMoney = 0;
+        goodsList.forEach(function (goods, index) {
+            goods.foods.forEach(function (food, _index) {
+                if (food.num) {
+                    totalNumber += food.num;
+                    totalMoney += food.num * food.price;
+                }
+            });
+        });
+		return {totalNumber, totalMoney}
+	}
+	module.exports.computed = computed
+</wxs>
+<wxs module="goods_total">
+    function computed(goods){
+        var totalMoney = 0;
+	    var totalNumber = 0;
+            goods.foods.forEach(function (food, _index) {
+                if (food.num) {
+                    totalNumber += food.num;
+                    totalMoney += food.num * food.price;
+                }
+        });
+        totalMoney = totalMoney.toFixed(2); // 处理小数精度问题
+		return {totalNumber, totalMoney}
+	}
+	module.exports.computed = computed
+</wxs>

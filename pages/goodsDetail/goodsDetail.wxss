@@ -1,0 +1,364 @@
+@charset "UTF-8";
+.page {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  -webkit-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
+  overflow: hidden;
+}
+
+.page .wrap-big {
+  padding: 80rpx 24rpx 0rpx 24rpx;
+  position: relative;
+}
+
+.page .padding-top24 {
+  padding: 24rpx 24rpx 0rpx 24rpx;
+}
+
+.page .page-swiper {
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.page .page-swiper swiper-item {
+  overflow-y: scroll;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.page .page-swiper .isBlank {
+  padding-top: 24rpx;
+}
+
+.page .card.card-word {
+  padding-left: 20rpx;
+}
+
+.page .card.card-word .content {
+  padding: 10rpx 0 20rpx;
+}
+
+.page .card.card-word .title {
+  position: relative;
+  padding-left: 20rpx;
+}
+
+.page .card.card-word .title::before {
+  position: absolute;
+  top: 25rpx;
+  left: 0;
+  width: 3rpx;
+  height: 30rpx;
+  background: #f3507e;
+  content: '';
+}
+
+.page .card.card-word .f-ft {
+  width: 150rpx;
+  padding: 0 10rpx;
+}
+
+.page .card.card-word .c-73 {
+  font-size: 26rpx;
+  color: #737373;
+}
+
+.page .detail-swiper {
+  margin-top: 24rpx;
+}
+
+.page .detail-img {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 0rpx 20rpx 0 20rpx;
+}
+
+.page .detail-img image {
+  width: 100%;
+  margin-bottom: -10rpx;
+}
+
+.page .navigation {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-top: 40rpx;
+  line-height: 88rpx;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 128rpx;
+  background: #f2f2f2;
+  border-bottom: 1px solid #dadada;
+  z-index: 100;
+}
+
+.page .navigation .back-bn {
+  position: absolute;
+  left: 20rpx;
+  bottom: 0rpx;
+  height: 77rpx;
+  padding: 0 10rpx;
+  vertical-align: middle;
+}
+
+.page .navigation .back-bn image {
+  width: 20rpx;
+  height: 32rpx;
+}
+
+.page .navigation text {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.page .nav {
+  position: absolute;
+  left: 50%;
+  top: 0rpx;
+  -webkit-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  width: 100%;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.page .nav .wrap-center {
+  width: 300rpx;
+  margin: 0 auto;
+}
+
+.page .nav .wrap-center .menu {
+  padding: 0 20rpx;
+}
+
+.page .nav .wrap-center .menu.c-active {
+  color: #f3507e;
+  position: relative;
+}
+
+.page .nav .wrap-center .menu.c-active:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20rpx;
+  right: 20rpx;
+  width: 60%;
+  height: 4rpx;
+  background: #f3507e;
+}
+
+.page .card {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 12rpx;
+  /*用来包裹所有的小圆点  */
+  /*未选中时的小圆点样式 */
+}
+
+.page .card swiper {
+  height: 680rpx;
+  border-top-left-radius: 12rpx;
+  border-top-right-radius: 12rpx;
+  text-align: center;
+  padding-top: 20rpx;
+}
+
+.page .card swiper image {
+  width: 665rpx;
+  height: 665rpx;
+}
+
+.page .card .wrap {
+  height: auto;
+  position: relative;
+}
+
+.page .card .dots {
+  width: 156rpx;
+  height: 36rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  position: absolute;
+  left: 320rpx;
+  bottom: 20rpx;
+}
+
+.page .card .dot {
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+  background-color: white;
+  border: 1px solid #b2b2b2;
+  /*选中以后的小圆点样式  */
+}
+
+.page .card .dot.active {
+  width: 18rpx;
+  height: 18rpx;
+  background-color: #f3507e;
+  border: 1px solid #f3507e;
+}
+
+.page .card .num {
+  padding: 10rpx 20rpx;
+  font-size: 26rpx;
+  color: #b3b3b3;
+}
+
+.page .card .num .left-line {
+  height: 2rpx;
+  position: relative;
+}
+
+.page .card .num .left-line image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.page .card .num .right-line {
+  height: 2rpx;
+  position: relative;
+}
+
+.page .card .num .right-line image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.page .card .price .fs-21 {
+  font-size: 42rpx;
+}
+
+.page .card .price .c-charge {
+  color: #e93c3a;
+}
+
+.page .card .goods-name {
+  color: #262626;
+  font-size: 32rpx;
+  margin: 20rpx 0 26rpx;
+}
+
+.page .card .goods-des {
+  color: #737373;
+  font-size: 26rpx;
+  padding-bottom: 20rpx;
+}
+
+.page .ic-top {
+  width: 18rpx;
+  height: 18rpx;
+}
+
+.page .footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 96rpx;
+  background: #fff;
+  text-align: center;
+  line-height: 96rpx;
+  font-size: 26rpx;
+}
+
+.page .footer .price-num {
+  text-align: right;
+  color: #262626;
+  margin-right: 28rpx;
+}
+
+.page .footer .price-num .c-charge {
+  color: #e93c3a;
+}
+
+.page .footer .price-num .c-charge.fs-14 {
+  font-size: 28rpx;
+}
+
+.page .footer .price-num .c-charge.fs-16 {
+  font-size: 32rpx;
+}
+
+.page .footer .buy {
+  width: 222rpx;
+  background: #f3507e;
+  color: #fff;
+  font-size: 32rpx;
+}
+
+.page .footer .buy.sell-out {
+  color: #b2b2b2;
+}
+
+.page.version-yellow .nav .wrap-center {
+  width: 300rpx;
+  margin: 0 auto;
+}
+
+.page.version-yellow .nav .wrap-center .menu {
+  padding: 0 20rpx;
+}
+
+.page.version-yellow .nav .wrap-center .menu.c-active {
+  color: #ffd21e;
+  position: relative;
+}
+
+.page.version-yellow .nav .wrap-center .menu.c-active:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20rpx;
+  right: 20rpx;
+  width: 60%;
+  height: 4rpx;
+  background: #ffd21e;
+}
+
+.page.version-yellow .card {
+  /*未选中时的小圆点样式 */
+}
+
+.page.version-yellow .card .dot {
+  /*选中以后的小圆点样式  */
+}
+
+.page.version-yellow .card .dot.active {
+  background-color: #ffd21e;
+  border: 1px solid #ffd21e;
+}
+
+.page.version-yellow .card.card-word .title::before {
+  background: #ffd21e;
+}
+
+.page.version-yellow .footer .buy {
+  background: #ffd21e;
+  color: #262626;
+}
+
+.pdd-lr-10 {
+  padding: 0 20rpx;
+}

@@ -1,0 +1,103 @@
+<view class="page">
+    <!-- <view class="navigation t-center">
+        <view class="back-bn" bindtap="goBack">
+            <image src="../../common/img/icon_msg_return@3x.png" />
+        </view>
+        <text>我的订单</text>
+    </view> -->
+    <navbar showBack="{{true}}" noBorder="{{true}}" white="{{true}}" title="我的订单"></navbar>
+    <view class="class-page-box">
+        <view style="top: {{navTop}}px" class="nav lh-40 bg-fff">
+            <view class="wrap-center flex justify">
+                <view class="menu {{currentPage === 0?'c-active':''}}" bindtap="allOrder">
+                    全部订单
+                </view>
+                <view class="menu {{currentPage === 1?'c-active':''}}" bindtap="ingOrder">进行中</view>
+            </view>
+        </view>
+        <view style="margin-top: {{wrapTop}}px" scroll-y class="class-page">
+            <!-- <scroll-view scroll-y class="class-page" bindscrolltoupper="topRefresh"> -->
+            <view class=" wrap-content">
+                <block>
+                    <view class="card bg-fff" wx:for="{{list_handler.handler(currentPage, orderList)}}" wx:key="{{index}}">
+                        <view class="title flex cm-border cm-border-bottom c-main lh-38">
+                            <view class="head-img f-ft">
+                                <image src="{{item.logo_img}}" alt />
+                            </view>
+                            <view class="shopName f-content lh-38">{{item.shop_name}}</view>
+                            <view class="status f-ht lh-38 {{item.order_status==='2'?'c-success':''}}">
+                                {{item.real_status}}
+                            </view>
+                        </view>
+                        <view class="proDetail flex f-justify" bindtap="scanDetail" data-order-type="{{item.order_type}}" data-id="{{item.id}}">
+                            <view class="f-ft goods-img">
+                                <image src="{{img_handler.handler(item.goods_img)}}" alt />
+                            </view>
+                            <view class="f-content goodsName">
+                                <text>{{item.goods_name}}</text>
+                            </view>
+                        </view>
+                        <view class="chargeDes flex justify cm-border cm-border-bottom">
+                            <text class="time fs-12">{{item.createtime}}</text>
+                            <view class="c-main fs-12">
+                                <text class="fs-12">实付金额：</text>
+                                <text class="c-charge fwb fs-16">{{item.moneyInt}}</text>
+                                <text class="c-charge fwb fs-14">{{item.moneyCharge}}</text>
+                            </view>
+                        </view>
+                        <view class="wrap-btn flex f-end vertical {{item.goods_type === 2?'justify':''}}">
+                            <count-down remaintime="{{item.remaintime}}" wx:if="{{item.goods_type === 2}}"></count-down>
+                            <view class="bn" bindtap="deleteGoods" data-id="{{item.id}}">删除订单</view>
+                        </view>
+                    </view>
+                    <view class="loading" wx:if="{{showLoadingText}}">正在载入更多...</view>
+                    <view class="loading complete" wx:if="{{loadingComplete}}">已加载全部</view>
+                </block>
+            </view>
+        </view>
+        <!-- </scroll-view> -->
+    </view>
+    <view class="net-error" wx:if="{{list_handler.handler(currentPage, orderList).length === 0 && showNetError === false}}">
+        <image src="../../common/img/noorde.png" alt='' />
+        <view wx:if="{{currentPage === 0}}">还没有下单？快去购买心动的东西吧~</view>
+        <view wx:if="{{currentPage === 1}}">还没有正在进行中的订单哦！</view>
+        <!-- <view class="bn" bindtap="goBuy">去购买</view> -->
+    </view>
+    <!-- <view class="h-100" wx:if="{{showNetError}}"> -->
+    <view class="net-error" wx:if="{{showNetError}}">
+        <image src="../../common/img/network.png" alt='' />
+        <view>网络加载失败，点击刷新试试吧~</view>
+        <view class="bn" bindtap="refresh">刷新</view>
+    </view>
+    <!-- </view> -->
+</view>
+<wxs module="img_handler">
+	function handler(goods_img){
+        if(typeof goods_img === 'string') {
+            return goods_img
+        } else if(typeof goods_img === 'object') {
+            return goods_img.length > 0 ? goods_img[0] : ''
+        } else {
+            return ''
+        }
+	}
+	module.exports.handler = handler
+</wxs>
+<wxs module="list_handler">
+    // 传入当前currentPage    ， 和数组
+	function handler(currentPage, list){
+        if(currentPage === 0) {
+            return list;
+        } else {
+            var new_list = [];
+            for(var i = 0; i < list.length; i++) {
+                var order_type = list[i].order_type;
+                if(order_type === '5' || order_type === '6' || order_type === '7') {
+                    new_list.push(list[i]);
+                }
+            }
+            return new_list;
+        }
+	}
+	module.exports.handler = handler
+</wxs>

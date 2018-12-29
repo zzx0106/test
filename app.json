@@ -1,0 +1,23 @@
+{
+    "pages": [
+        "pages/shop/shop",
+        "pages/myOrders/myOrders",
+        "pages/index/index",
+        "pages/shopDetail/shopDetail",
+        "pages/shopSuccess/shopSuccess",
+        "pages/consult/consult",
+        "pages/shopRemarks/shopRemarks",
+        "pages/shopCarList/shopCarList",
+        "pages/main/main",
+        "pages/completePay/completePay",
+        "pages/orderDetail/orderDetail",
+        "pages/goodsDetail/goodsDetail",
+        "pages/question/question"
+    ],
+    "window": {
+        "navigationBarBackgroundColor": "#005C00",
+        "navigationBarTitleText": "这是测试",
+        "navigationStyle": "custom",
+        "navigationBarTextStyle": "black"
+    }
+}

@@ -1,0 +1,83 @@
+page {
+  height: 100%;
+  overflow: hidden;
+}
+
+.page {
+  font-family: 'PingFang-SC-Medium';
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.page .btn-getphone {
+  border: none;
+  background: transparent;
+}
+
+.page .btn-getphone::after {
+  border: none;
+}
+
+.page .header {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 520rpx;
+  background: url("https://res.cmfspay.com/static/travel/img/image_myself_head_backgrond_2.jpg") no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+  border-radius: 12rpx;
+  padding-top: 80rpx;
+  margin: 24rpx 24rpx 0 24rpx;
+}
+
+.page .header .avatar {
+  margin-bottom: 40rpx;
+}
+
+.page .header .avatar image {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 50%;
+}
+
+.page .header .nickname {
+  color: #262626;
+  font-size: 36rpx;
+}
+
+.page .header .phone {
+  color: #262626;
+  font-size: 30rpx;
+}
+
+.page .main-content {
+  margin: 60rpx 24rpx 24rpx 24rpx;
+  font-size: 28rpx;
+}
+
+.page .main-content .menu {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 12rpx;
+  padding: 0px 24rpx;
+  margin-bottom: 30rpx;
+}
+
+.page .main-content .menu .icon {
+  width: 46rpx;
+  margin-right: 24rpx;
+}
+
+.page .main-content .menu .icon image {
+  width: 46rpx;
+  height: 46rpx;
+  -webkit-transform: translate(0, 14rpx);
+  -ms-transform: translate(0, 14rpx);
+  transform: translate(0, 14rpx);
+}
+
+.page.version-yellow .header {
+  background: url(https://res.cmfspay.com/static/travel/img/image_myself_head_backgrond_1.jpg) center center no-repeat;
+  background-size: 100% 100%;
+}

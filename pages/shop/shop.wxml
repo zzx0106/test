@@ -1,0 +1,186 @@
+<view class="page h-100 bg-main">
+    <navbar showHome="{{true}}" noBackground="{{true}}" noBorder="{{true}}"></navbar>
+    <view bind:tap="showShopList" animation="{{anima_opacity}}" class="shadow" wx:if="{{showShadow}}"></view>
+    <view animation="{{anima_drawer}}" class="modal">
+        <view class="top-box">
+            <view class="left">
+                <text class="t">购物车</text>
+                <text class="n">(共{{shop_car_total.computed(goodsList).totalNumber}}件商品)</text>
+            </view>
+            <view class="right" bind:tap="clearCar">
+                <view class="back-bn">
+                    <image mode="widthFix" src="../../common/img/clear_car@2x.png" />
+                </view>
+                <text>清空购物车</text>
+            </view>
+        </view>
+        <view class="bottom-box">
+            <scroll-view scroll-y="{{true}}" class="scroll">
+                <block class="bottom-box-item" wx:for="{{goodsList}}" wx:key="{{index}}">
+                    <view wx:if="{{food.num}}" class="bottom-box-item" wx:for="{{item.foods}}" wx:for-item="food" wx:for-index="foodIndex" wx:key="food.id">
+                        <view class="item-left">
+                            <view class="pic">
+                                <image mode="widthFix" lazy-load="{{true}}" src="{{food.imgs[0]}}" />
+                            </view>
+                            <view class="info">
+                                <view class="text-black">{{food.goods_name}}</view>
+                                <view class="goods-price">￥ {{food.price * food.num}}</view>
+                            </view>
+                        </view>
+                        <view class="bottom-box-handler">
+                            <view class="goods-handler">
+                                <view wx:if="{{food.num}}" class="goods-btn goods-sub" data-classify-index="{{index}}" data-goods-index="{{foodIndex}}" bind:tap="removeGoods">
+                                    <image mode="widthFix" src="../../common/img/food_verb@3x.png" />
+                                </view>
+                                <view class="goods-num">
+                                    <text>{{food.num }}</text>
+                                </view>
+                                <view class="goods-btn" data-classify-index="{{index}}" data-goods-index="{{foodIndex}}" bind:tap="addGoods">
+                                    <image mode="widthFix" src="../../common/img/food_add@3x.png" />
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+            </scroll-view>
+        </view>
+    </view>
+    <view class="bg-img">
+        <image mode="widthFix" src="https://res.cmfspay.com/static/travel/img/mapp/image_home_backgrond@3x.png" />
+    </view>
+    <!-- <view class="navigation t-center">
+        <view class="back-bn" bindtap="goBack">
+            <image src="../../common/img/icon_msg_return@3x.png" />
+        </view>
+        <text>菜单</text>
+    </view> -->
+    <scroll-view lower-threshold="10rpx" bind:scroll="boxScroll" scroll-into-view="{{TopId}}" scroll-with-animation bind:scrolltolower="isBoxScrollBottom" class="head-body-scroll" scroll-y="{{true}}">
+        <view class="test">
+            <view class="shop-head-box">
+                <view class="shop-head">
+                    <view class="head-title">{{shopinfo.shop_name || ''}}</view>
+                    <view class="head-title2">
+                        <view class="head-left shop-status">
+                            <image src="../../common/img/shop_status@2x.png" />
+                            <view class="shop-status-info">
+                                <text class="bfor">{{shopinfo.business_status}}</text>
+                                <text class="aft">营业时间    09:00~23:00</text>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="head-title3">
+                        <view class="head-left">
+                            <text class="bfor">欢迎光临~</text>
+                            <text class="aft">酒店服务热线：{{shopinfo.mobile}}</text>
+                        </view>
+                        <view class="head-center"></view>
+                        <view class="head-right">
+                            <image data-phone="{{shopinfo.mobile}}" bind:tap="callSomeOne" mode="widthFix" class="img-call" src="../../common/img/phone@2x.png" />
+                        </view>
+                    </view>
+                    <view class="avatar">
+                        <image bind:tap="goIndexPage" mode="widthFix" class="img-avatar" src="{{myAvatar}}" />
+                    </view>
+                </view>
+            </view>
+            <view id="top" class="shop-body">
+                <view class="body-left">
+                    <scroll-view scroll-top="{{scrollTop}}" scroll-y="{{true}}" class="shop-box h-100">
+                        <view data-index="{{index}}" wx:for="{{goodsList}}" data-id="_{{item.category}}" wx:key="index" bind:tap="checkList" class="list-item {{item.category === curNav ? 'active' : ''}}">
+                            <view class="left-red-block"></view>
+                            <view class="list-item-title">{{item.category_name}}</view>
+                            <text class="red-dot" wx:if="{{G.C(item).N>0}}">{{G.C(item).N}}</text>
+                            <!-- <view class="list-item-dot-box" wx:if="{{goods_total.computed(item).totalNumber > 0}}">
+                                <text class="list-item-dot">
+                                    {{goods_total.computed(item).totalNumber}}
+                                </text>
+                            </view> -->
+                        </view>
+                    </scroll-view>
+                </view>
+                <view class="body-right">
+                    <scroll-view scroll-into-view="{{scrollTopId}}" bind:scroll="scroll" scroll-with-animation scroll-y="{{canScroll}}" class="shop-box h-100">
+                        <view class="body-right-list" wx:for="{{goodsList}}" wx:for-index="classifyIndex" wx:for-item="classifyItem" wx:if="{{goodsList.length > 0}}" wx:key="classifyItem.category">
+                            <view class="list-title" id="_{{classifyItem.category}}">
+                                {{classifyItem.category_name}}
+                            </view>
+                            <view class="list-box">
+                                <view class="goods" wx:for="{{classifyItem.foods}}" data-index="{{goodsIndex}}" wx:for-index="goodsIndex" wx:for-item="goodItem" wx:key="goodItem.id">
+                                    <image src="{{goodItem.imgs[0]}}" class="goods-left" lazy-load="true" />
+                                    <view class="goods-right">
+                                        <view class="goods-name">{{goodItem.goods_name}}</view>
+                                        <view class="goods-subname">{{goodItem.goods_desc}}</view>
+                                        <view class="goods-other">
+                                            <view class="goods-price">
+                                                <text class="left">￥{{goodItem.price}}</text>
+                                                <text class="right">/份</text>
+                                            </view>
+                                            <view class="goods-handler">
+                                                <view wx:if="{{goodItem.num > 0}}" class="goods-btn goods-sub" data-goods-index="{{goodsIndex}}" data-classify-index="{{classifyIndex}}" data-food="{{goodItem}}" bind:tap="removeGoods">
+                                                    <image  src="../../common/img/food_verb@3x.png" />
+                                                </view>
+                                                <view wx:if="{{goodItem.num > 0}}" class="goods-num">
+                                                    <text>{{goodItem.num || 0}}</text>
+                                                </view>
+                                                <view class="goods-btn" data-classify-index="{{classifyIndex}}" data-goods-index="{{goodsIndex}}" data-food="{{goodItem}}" bind:tap="addGoods">
+                                                    <image  src="../../common/img/food_add@3x.png" />
+                                                </view>
+                                            </view>
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </scroll-view>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+    <view class="shop-footer">
+        <view class="footer-left">
+            <view class="foot-left-box">
+                <view class="shopping-car" bind:tap="showShopList">
+                    <image mode="widthFix" class="image" src="../../common/img/shop_cart@3x.png" />
+                    <text class="red-dot">{{shop_car_total.computed(goodsList).totalNumber}}</text>
+                </view>
+                <view class="footer-text">
+                    <text class="tit">合计</text>
+                    <text class="sum">￥{{shop_car_total.computed(goodsList).totalMoney}}</text>
+                </view>
+            </view>
+        </view>
+        <view class="footer-right">
+            <view class="btn-submit" bind:tap="submitOrder">提交订单</view>
+        </view>
+    </view>
+</view>
+<wxs module="shop_car_total">
+    
+	function computed(goodsList){
+	    var totalNumber = 0;
+        var totalMoney = 0;
+        goodsList.forEach(function (goods, index) {
+            goods.foods.forEach(function (food, _index) {
+                if (food.num) {
+                    totalNumber += food.num;
+                    totalMoney += food.num * food.price;
+                }
+            });
+        });
+         totalMoney = totalMoney.toFixed(2); // 处理小数精度问题
+		return {totalNumber, totalMoney}
+	}
+	module.exports.computed = computed
+</wxs>
+<wxs module="G">
+	function C(goods){
+	    var totalNumber = 0;
+            goods.foods.forEach(function (food, _index) {
+                if (food.num) {
+                    totalNumber += food.num;
+                }
+        });
+		return {N: totalNumber}
+	}
+	module.exports.C = C
+</wxs>

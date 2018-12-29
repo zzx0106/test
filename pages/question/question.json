@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "这是复制页面",
+    "usingComponents": {
+        "navbar": "/components/navbar/index"
+    }
+}

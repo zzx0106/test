@@ -1,0 +1,155 @@
+<view class="page h-100 bg-main">
+    <!-- <view class="navigation t-center">
+        <view class="back-bn" bindtap="goBack">
+            <image src="../../common/img/icon_msg_return@3x.png" />
+        </view>
+        <text>订单结算</text>
+    </view> -->
+    <navbar showBack="{{true}}" white="{{true}}" title="订单结算"></navbar>
+    <view bind:tap="closeModal" class="shadow" wx:if="{{showModal}}"></view>
+    <view wx:if="{{showModal}}" class="time-modal {{showModal ? 'modal_show' : 'modal_hidden'}}">
+        <view class="title  border-bottom">选择送达时间</view>
+        <view class="body-box">
+            <view class="box-left">
+                <scroll-view class="scroll-view-box" scroll-y="{{true}}">
+                    <view class="time-day item on" wx:for="{{time_format.days}}" wx:key="index">
+                        <text>今天</text>
+                        <text class='s-t'>({{item}})</text>
+                    </view>
+                </scroll-view>
+            </view>
+            <view class="box-right ">
+                <scroll-view class="scroll-view-box" scroll-y="{{true}}">
+                    <view data-time="{{item}}" data-index="{{index}}" bind:tap="checkOne" class="time-hour item border-bottom {{checkIndex === index ? 'on' : ''}}" wx:key="{{index}}" wx:for="{{time_format.hours}}">
+                        {{item.str}}
+                        <view wx:if="{{checkIndex === index}}" class="time-hour-icon">
+                            <image  src="../../common/img/checked@2x.png" />
+                        </view>
+                    </view>
+                </scroll-view>
+            </view>
+        </view>
+        <view class="modal-footer" bind:tap="closeModal">确定</view>
+    </view>
+    <view class="shop-detail-body">
+        <view class="shop-container">
+            <view class="top-style">
+                <view class="text-title1">
+                    <view class="icon-title">
+                        <image mode="widthFix" src="../../common/img/address@2x.png" />
+                    </view>
+                    <view class="top-title">{{submitGoods.shopinfo.shop_name}}</view>
+                </view>
+                <view class="text-title2">
+                    <view class="icon-title"></view>
+                    <view class="top-title">房间号：{{orderinfo.door_number}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="shop-container ">
+            <view class="item-style border-bottom between">
+                <view class="text-title1">
+                    <view class="icon-title">
+                        <image mode="widthFix" src="../../common/img/times@2x.png" />
+                    </view>
+                    <view class="top-title">送达时间</view>
+                </view>
+                <view bind:tap="checkTime" class="enter-box">
+                    <text class="text-black text-26">{{time_format.hours[checkIndex].str}}</text>
+                    <view class="icon-title2">
+                        <image mode="widthFix" src="../../common/img/icon_myself_enter@3x.png" />
+                    </view>
+                </view>
+            </view>
+            <view class="item-style  between">
+                <view class="text-title1">
+                    <view class="icon-title">
+                        <image mode="widthFix" src="../../common/img/goods@2x.png" />
+                    </view>
+                    <view class="top-title">商品信息</view>
+                </view>
+            </view>
+            <view class="goods-list">
+                <scroll-view class="scroll-view-box" scroll-x>
+                    <block class="bottom-box-item" wx:for-item="goodsItem" wx:for="{{submitGoods.menu_detail}}" wx:key="{{index}}">
+                        <view class="good-list-item" wx:if="{{foodsItem.num && shop_car_total.computed(submitGoods.menu_detail).totalNumber > 1}}" wx:for-item="foodsItem" wx:for="{{goodsItem.foods}}" wx:key="{{foodsItem.id}}">
+                            <image lazy-load="{{true}}" class="item-img" mode="widthFix" src="{{foodsItem.imgs[0]}}" />
+                        </view>
+                        <view class="good-one-list-item" wx:if="{{foodsItem.num && shop_car_total.computed(submitGoods.menu_detail).totalNumber === 1}}" wx:for-item="foodsItem" wx:for="{{goodsItem.foods}}" wx:key="{{foodsItem.id}}">
+                            <image lazy-load="{{true}}" class="item-img" mode="widthFix" src="{{foodsItem.imgs[0]}}" />
+                            <view class="right-item">
+                                <view>{{foodsItem.goods_name}}</view>
+                                <!-- <view >{{foodsItem.goods_desc}}</view> -->
+                                <view>单价 : ￥{{foodsItem.price}} / 份</view>
+                                <view>数量 : {{foodsItem.num}}</view>
+                            </view>
+                        </view>
+                    </block>
+                </scroll-view>
+                <view bind:tap="goShopCarList" wx:if="{{shop_car_total.computed(submitGoods.menu_detail).totalNumber > 1}}" class="next-one">
+                    <text class="">
+                        共{{shop_car_total.computed(submitGoods.menu_detail).totalNumber}}件
+                    </text>
+                    <view class="icon-title2">
+                        <image mode="widthFix" src="../../common/img/icon_myself_enter@3x.png" />
+                    </view>
+                </view>
+            </view>
+            <view class="item-style between ">
+                <view class="text-bold"></view>
+                <view class="all-box flex">
+                    <text class="text-black text-24">
+                        共{{shop_car_total.computed(submitGoods.menu_detail).totalNumber}}个商品，合计:
+                    </text>
+                    <text class="text-red">
+                        ￥ {{shop_car_total.computed(submitGoods.menu_detail).totalMoney}}
+                    </text>
+                </view>
+            </view>
+        </view>
+        <view class="shop-container">
+            <view class="item-style between" bind:tap="goRemarks">
+                <view class="text-title1">
+                    <view class="text-title1">
+                        <view class="icon-title">
+                            <image mode="widthFix" src="../../common/img/remark@2x.png" />
+                        </view>
+                        <view class="top-title">备注</view>
+                    </view>
+                </view>
+                <view class="enter-box">
+                    <text class="text-gray">{{remarks || '口味、偏好'}}</text>
+                    <view class="icon-title2">
+                        <image mode="widthFix" src="../../common/img/icon_myself_enter@3x.png" />
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="shop-detail-footer">
+        <view class="footer-left">
+            <view>合计：</view>
+            <view class="total-money">￥ {{shop_car_total.computed(submitGoods.menu_detail).totalMoney}}</view>
+        </view>
+        <view class="footer-right">
+            <view class="btn-submit" bind:tap="goShopSuccess">结算</view>
+        </view>
+    </view>
+</view>
+<wxs module="shop_car_total">
+	function computed(goodsList){
+	    var totalNumber = 0;
+        var totalMoney = 0;
+        goodsList.forEach(function (goods, index) {
+            goods.foods.forEach(function (food, _index) {
+                if (food.num) {
+                    totalNumber += food.num;
+                    totalMoney += food.num * food.price;
+                }
+            });
+        });
+        totalMoney = totalMoney.toFixed(2); // 处理小数精度问题
+		return {totalNumber, totalMoney}
+	}
+	module.exports.computed = computed
+</wxs>

@@ -1,0 +1,52 @@
+<view class="page h-100 cm-border cm-border-top">
+    <!-- <view class="navigation t-center">
+        <view class="back-bn" bindtap="goBack">
+            返回
+        </view>
+        <text>支付成功</text>
+    </view> -->
+
+    <navbar showBack="{{false}}" title="支付成功"></navbar>
+    <view class="msg-box flex horizontal">
+        <view class="sticks">
+            <view class="line short_line"></view>
+            <view class="success_bg icon_bg flex horizontal vertical">
+                <image src="../../common/img/icon_pay_success@3x.png" />
+            </view>
+            <view class="line long_line"></view>
+            <view class="status_bg icon_bg flex horizontal vertical {{rotate?'rotate':''}}">
+                <image src="../../common/img/icon_pay_wait@3x.png" alt="" wx:if='{{openStatus === -1}}' />
+                <image src="../../common/img/icon_pay_success@3x.png" alt="" wx:if='{{openStatus === 1}}' />
+                <image src="../../common/img/icon_pay_failure@3x.png" alt="" wx:if='{{openStatus === 0}}' />
+                <image src="../../common/img/icon_pay_energy@3x.png" alt="" wx:if='{{openStatus === 2}}' />
+            </view>
+            <view class="line long_line"></view>
+        </view>
+        <view class="status">
+            <view class="c-main fs-14 pay_status">支付成功</view>
+            <view class="goods-status flex horizontal f-column" wx:if="{{openStatus !== 2}}">
+                <view class="c-main lh-20">{{status}}</view>
+                <view class="fs-12 num">
+                    格子编号：
+                    <text>{{openMsg.cellName}}</text>
+                </view>
+            </view>
+            <view class="goods-status flex horizontal f-column" wx:if="{{openStatus === 2}}">
+                <view class="c-main lh-20">
+                    <count-down remaintime="3600" showWords="{{false}}" wx:if="{{orderType === 2}}"></count-down>
+                </view>
+                <view class="fs-12 num">充电时间倒计时</view>
+            </view>
+        </view>
+    </view>
+    <view class="goods-loc">
+        <view class="box-gif">
+            <!-- <image mode="widthFix" src="https://res.cmfspay.com/static/travel/img/opendoor/2.gif" mode="widthFix" /> -->
+            <image src="{{openMsg.imgUrl}}" mode="widthFix" />
+        </view>
+    </view>
+    <view class="wrap-bn">
+        <view class="bn" bindtap="complete">完成</view>
+        <view class="question" bindtap="question">对这笔订单有疑问？</view>
+    </view>
+</view>

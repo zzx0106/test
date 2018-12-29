@@ -1,0 +1,9 @@
+{
+    "navigationBarTitleText": "我的订单",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 5,
+    "usingComponents": {
+        "count-down": "/components/countdown/countdown",
+        "navbar": "/components/navbar/index"
+    }
+}

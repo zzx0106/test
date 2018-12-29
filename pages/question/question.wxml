@@ -1,0 +1,24 @@
+<view class="page h-100">
+     <!-- <view class="navigation t-center">
+        <view class="back-bn" bindtap="goBack">
+            <image src="../../common/img/icon_msg_return@3x.png" />
+        </view>
+        <text>常见问题</text>
+    </view> -->
+    <navbar showBack="{{true}}" title="常见问题"></navbar>
+
+    <view class="list-group bg-fff">
+        <view class="list">
+            <view class="question">1.出货失败，如何退款？</view>
+            <view class="answer">系统会自动对出货失败的订单自动退款</view>
+        </view>
+        <view class="list">
+            <view class="question">2.如何取消订单？</view>
+            <view class="answer">如果尚未完成支付，您可以再订单详情页通过“取消订单”功能进行取消。</view>
+        </view>
+        <view class="list">
+            <view class="question">3.出货的商品不是我下单的商品</view>
+            <view class="answer">您可以通过电话联系商家</view>
+        </view>
+    </view>
+</view>

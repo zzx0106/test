@@ -1,0 +1,539 @@
+.page {
+  -webkit-overflow-scrolling: touch;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  background: #343131 url(https://res.cmfspay.com/static/travel/img/mapp/image_home_backgrond@3x.png) no-repeat;
+  background-size: 100%;
+}
+
+.page .navigation {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-top: 40rpx;
+  line-height: 88rpx;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 128rpx;
+  z-index: 12;
+}
+
+.page .navigation .back-bn {
+  position: absolute;
+  left: 20rpx;
+  bottom: 0rpx;
+  height: 77rpx;
+  padding: 0 10rpx;
+  vertical-align: middle;
+}
+
+.page .navigation .back-bn cover-image {
+  width: 64rpx;
+  height: 64rpx;
+}
+
+.page .navigation text {
+  font-size: 28rpx;
+  color: #fff;
+}
+
+.page .scroll-box {
+  padding: 0 24rpx;
+  width: auto;
+}
+
+.page.forbid {
+  overflow: hidden;
+}
+
+.page .fs-21 {
+  font-size: 42rpx;
+}
+
+.page .fs-14 {
+  font-size: 28rpx;
+}
+
+.page .charge-box {
+  position: absolute;
+  bottom: 0rpx;
+  left: 50%;
+  z-index: 100;
+  -webkit-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  width: 95%;
+  background: #f35581;
+  border-radius: 24rpx 24rpx 0px 0px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.page .charge-box .close {
+  width: 30rpx;
+  height: 30rpx;
+  font-size: 40rpx;
+  padding: 10rpx;
+}
+
+.page .charge-box .section1 {
+  padding-top: 40rpx;
+  padding-bottom: 30px;
+}
+
+.page .charge-box .cm-border.cm-border-bottom:after {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.page .charge-box .ic-charge {
+  width: 95rpx;
+  height: 95rpx;
+  margin-right: 20rpx;
+}
+
+.page .charge-box .ic-charge image {
+  width: 100%;
+  height: 100%;
+}
+
+.page .charge-box .fs-21 {
+  font-size: 42rpx;
+}
+
+.page .charge-box .money {
+  color: #fff;
+  height: 90rpx;
+}
+
+.page .charge-box .money text {
+  font-size: 50rpx;
+  line-height: 50rpx;
+  font-family: PingFang-SC-Regular;
+  margin-right: 10rpx;
+}
+
+.page .charge-box .money view {
+  line-height: 40rpx;
+}
+
+.page .charge-box .pay {
+  padding: 60rpx;
+}
+
+.page .charge-box .pay .bn {
+  width: 260rpx;
+  margin: 0 auto;
+  height: 72rpx;
+  border: 2rpx solid #fff;
+  border-radius: 6rpx;
+  color: #fff;
+  text-align: center;
+  line-height: 72rpx;
+}
+
+.page .shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
+.page .header {
+  border-radius: 6px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-top: 113rpx;
+  position: relative;
+  z-index: 10;
+}
+
+.page .header .shopMsg .avatar {
+  width: 98rpx;
+  height: 98rpx;
+  border-radius: 50%;
+}
+
+.page .header .shopMsg .avatar image {
+  width: 98rpx;
+  height: 98rpx;
+}
+
+.page .header .shopMsg .shopContent {
+  padding-top: 21rpx;
+  position: relative;
+  margin-left: 20rpx;
+}
+
+.page .header .shopMsg .shopContent .scan {
+  font-size: 22rpx;
+  line-height: 60rpx;
+}
+
+.page .header .shopMsg .virtual-goods {
+  text-align: center;
+  font-size: 22rpx;
+}
+
+.page .header .shopMsg .virtual-goods .ic {
+  display: inline-block;
+  width: 30rpx;
+  height: 30rpx;
+  vertical-align: middle;
+  margin-bottom: 20rpx;
+}
+
+.page .header .shopMsg .virtual-goods .ic.ic-charge image {
+  width: 100%;
+  height: 100%;
+}
+
+.page .header h4 {
+  font-size: 36rpx;
+  color: #1c1c1c;
+  font-weight: normal;
+}
+
+.page .header .service {
+  margin-top: 10rpx;
+  color: #404040;
+  letter-spacing: 2rpx;
+}
+
+.page .header .service.left-border {
+  position: relative;
+}
+
+.page .header .service.left-border:after {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4rpx;
+  height: 100%;
+  background: #f3507e;
+}
+
+.page .content {
+  position: relative;
+  z-index: 10;
+  padding-bottom: 100rpx;
+}
+
+.page .content.layoutTwo {
+  margin: 60rpx 0;
+}
+
+.page .content.layoutTwo .item-group .item {
+  width: 48%;
+  background: #fff;
+  margin-bottom: 20rpx;
+  border-radius: 12rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.page .content.layoutTwo .item-group .item .goods-msg {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  border-top-left-radius: 12rpx;
+  border-top-right-radius: 12rpx;
+}
+
+.page .content.layoutTwo .item-group .item .goods-name {
+  padding: 20rpx 0rpx 24rpx;
+}
+
+.page .content.layoutTwo .item-group .item .goods-img {
+  width: 100%;
+  border-radius: 12rpx;
+  margin-bottom: 43rpx;
+}
+
+.page .content.layoutTwo .item-group .item .goods-img image {
+  width: 100%;
+  border-top-left-radius: 12rpx;
+  border-top-right-radius: 12rpx;
+}
+
+.page .content.layoutTwo .item-group .item .num {
+  padding: 12rpx 0 16rpx;
+  text-align: center;
+  color: #f3507e;
+  font-size: 26rpx;
+}
+
+.page .content.layoutTwo .item-group .item .horizontal-line {
+  width: 100%;
+  height: 2rpx;
+  position: relative;
+}
+
+.page .content.layoutTwo .item-group .item .horizontal-line image {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.page .content.layoutTwo .item-group .item .pay-msg-box {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 12rpx 32rpx;
+  padding: 14rpx 0px 14rpx 32rpx;
+  background: #f3507e;
+  border-bottom-left-radius: 12rpx;
+  border-bottom-right-radius: 12rpx;
+  color: #fff;
+  position: relative;
+}
+
+.page .content.layoutTwo .item-group .item .pay-msg-box .l-46 {
+  height: 42rpx;
+}
+
+.page .content.layoutTwo .item-group .item .pay-msg-box .money-l {
+  line-height: 38rpx;
+  font-size: 42rpx;
+}
+
+.page .content.layoutTwo .item-group .item .pay-msg-box .money-s {
+  line-height: 28rpx;
+  font-size: 28rpx;
+}
+
+.page .content.layoutTwo .item-group .item .pay-msg-box .left-border {
+  position: relative;
+  width: 144rpx;
+  text-align: center;
+  line-height: 48rpx;
+  color: #fff;
+}
+
+.page .content.layoutTwo .item-group .item .pay-msg-box .left-border.sell-out {
+  color: #b3b3b3;
+}
+
+.page .content.layoutTwo .item-group .item .pay-msg-box .left-border:after {
+  display: block;
+  content: '';
+  position: absolute;
+  top: -6rpx;
+  left: 0;
+  width: 2rpx;
+  height: 60rpx;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.page .content.layoutOne {
+  margin: 40rpx 0;
+}
+
+.page .content.layoutOne .card-group .card {
+  border-radius: 12rpx;
+  padding: 10rpx 0px;
+  height: 440rpx;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-bottom: 20rpx;
+}
+
+.page .content.layoutOne .card-group .card .left-img {
+  width: 420rpx;
+  padding: 10rpx 0 10rpx 20rpx;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.page .content.layoutOne .card-group .card .left-img image {
+  width: 100%;
+  height: 100%;
+  border-radius: 12rpx 0rpx 0rpx 12rpx;
+}
+
+.page .content.layoutOne .card-group .card .goods-msg {
+  padding: 0rpx 20rpx 10rpx;
+  position: relative;
+  font-size: 26rpx;
+  border-left: 2rpx solid #f3507e;
+}
+
+.page .content.layoutOne .card-group .card .goods-msg .num {
+  position: absolute;
+  top: 10rpx;
+  left: 0rpx;
+  background-color: #f56e94;
+  padding-left: 14rpx;
+  height: 31rpx;
+  line-height: 31rpx;
+  color: #fff;
+}
+
+.page .content.layoutOne .card-group .card .goods-msg .num .bg {
+  position: absolute;
+  right: -28rpx;
+  top: 0;
+  width: 30rpx;
+  height: 31rpx;
+}
+
+.page .content.layoutOne .card-group .card .goods-msg .num .bg image {
+  width: 100%;
+  height: 100%;
+}
+
+.page .content.layoutOne .card-group .card .goods-msg .goods-name {
+  font-family: PingFang-SC-Regular;
+  max-height: 64rpx;
+  margin: 60rpx 0 22rpx;
+  color: #000;
+}
+
+.page .content.layoutOne .card-group .card .goods-msg .goods-des {
+  color: #737373;
+  font-size: 24rpx;
+  height: 117rpx;
+}
+
+.page .content.layoutOne .card-group .card .goods-msg .price {
+  margin: 0 0 48rpx;
+  font-weight: bold;
+}
+
+.page .content.layoutOne .card-group .card .goods-msg .price .c-charge {
+  color: #e93c3a;
+}
+
+.page .content.layoutOne .card-group .card .goods-msg .price .fs-18 {
+  font-size: 36rpx;
+}
+
+.page .content.layoutOne .card-group .card .goods-msg .buy-bn {
+  width: 100%;
+  height: 72rpx;
+  line-height: 72rpx;
+  background: #f3507e;
+  color: #fefefe;
+  font-size: 32rpx;
+  border-radius: 6rpx;
+}
+
+.page .content.layoutOne .card-group .card .goods-msg .buy-bn.sell-out {
+  color: #b3b3b3;
+}
+
+.page .footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.line-s {
+  margin: 0 90rpx;
+  border-bottom: 1rpx solid #000;
+  opacity: 0.2;
+}
+
+.page.version-yellow {
+  background: #343131 url(https://res.cmfspay.com/static/travel/img/mapp/image_home_backgrond_2@3x.png) no-repeat;
+  background-size: 100%;
+}
+
+.page.version-yellow .pay-msg-box {
+  background: #ffd21e !important;
+}
+
+.page.version-yellow .charge-box {
+  background: #ffd21e;
+}
+
+.page.version-yellow .charge-box .pay .bn {
+  border: 2rpx solid #000;
+  color: #000;
+}
+
+.page.version-yellow .header {
+  -webkit-box-shadow: 0px 4rpx 12rpx rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4rpx 12rpx rgba(0, 0, 0, 0.3);
+}
+
+.page.version-yellow .content {
+  position: relative;
+  z-index: 10;
+  padding-bottom: 100rpx;
+}
+
+.page.version-yellow .content.layoutTwo .item-group .item .horizontal-line {
+  width: 100%;
+  height: 2rpx;
+}
+
+.page.version-yellow .content.layoutTwo .item-group .item .horizontal-line image {
+  width: 100%;
+  height: 100%;
+}
+
+.page.version-yellow .content.layoutTwo .item-group .item .num {
+  color: #f9bc16;
+}
+
+.page.version-yellow .content.layoutTwo .item-group .item .pay-msg {
+  background: #ffd21e;
+}
+
+.page.version-yellow .content.layoutTwo .item-group .item .pay-msg .c-e9 {
+  color: #e93c3a;
+}
+
+.page.version-yellow .content.layoutTwo .item-group .item .pay-msg .c-27 {
+  color: #272727;
+}
+
+.page.version-yellow .content.layoutTwo .item-group .item .pay-msg .c-e93 {
+  color: #e93c3a;
+}
+
+.page.version-yellow .content.layoutTwo .item-group .item .pay-msg .left-border {
+  color: #000;
+}
+
+.page.version-yellow .content.layoutTwo .item-group .item .pay-msg .left-border.sell-out {
+  color: #b3b3b3;
+}
+
+.page.version-yellow .content.layoutTwo .item-group .item .pay-msg .left-border:after {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.page.version-yellow .content.layoutOne .card-group .card .goods-msg {
+  border-left: 2rpx solid #ffd21e;
+}
+
+.page.version-yellow .content.layoutOne .card-group .card .goods-msg .num {
+  background-color: #ffd21e;
+}
+
+.page.version-yellow .content.layoutOne .card-group .card .goods-msg .buy-bn {
+  background: #ffd21e;
+  color: #262626;
+}
