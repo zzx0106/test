@@ -32,9 +32,7 @@ Page({
     anima_opacity: {} // 渐变
 
   },
-  onPageScroll: function onPageScroll(e) {
-    console.log('----------', e);
-  },
+  onPageScroll: function onPageScroll(e) {},
   onLoad: function () {
     var _onLoad = _asyncToGenerator(
     /*#__PURE__*/
@@ -68,7 +66,7 @@ Page({
               app.$http.request('/consumer/waimaiindex', {
                 suid: '2'
               }, 'post').then(function (res) {
-                console.log('get all list ', JSON.parse(res));
+                console.log('api /consumer/waimaiindex ', JSON.parse(res));
                 var res_data = JSON.parse(res);
                 var goods_list = res_data.menu_detail || []; //     // 同步缓存购物车到请求的数据中
 
@@ -86,8 +84,6 @@ Page({
                   });
                 } // left 置顶
 
-
-                console.log(' goods_list[0].id', res_data);
 
                 _this.setData({
                   shopinfo: res_data.shopinfo,
@@ -126,7 +122,6 @@ Page({
         duration: 1000,
         timingFunction: 'ease'
       });
-      console.log('this.', this.data.checkedGoods);
     } catch (error) {
       console.log(error);
     }
@@ -190,7 +185,6 @@ Page({
     });
   },
   callSomeOne: function callSomeOne(e) {
-    console.log(e);
     var phoneNumber = e.currentTarget.dataset.phone; // const { phoneNumber } = this.data;
 
     if (!phoneNumber) {
@@ -216,7 +210,6 @@ Page({
     }
   },
   addGoods: function addGoods(e) {
-    console.log('e.currentTarget.dataset', e.currentTarget.dataset);
     var _e$currentTarget$data = e.currentTarget.dataset,
         food = _e$currentTarget$data.food,
         classifyIndex = _e$currentTarget$data.classifyIndex,
@@ -225,9 +218,6 @@ Page({
     var goods = goodsList[classifyIndex].foods[goodsIndex];
 
     var _key = "goodsList[".concat(classifyIndex, "].foods[").concat(goodsIndex, "].num");
-
-    console.log('goods----', goodsList[classifyIndex], goodsList[classifyIndex].foods);
-    console.log('_key----', _key);
 
     if (!goods.num) {
       this.setData(_defineProperty({}, _key, 1));
@@ -271,11 +261,10 @@ Page({
               _context3.prev = 0;
               goodsList = this.data.goodsList; // wx.showLoading({ title: '清空购物车...' });
 
-              console.log('goodsList', goodsList);
-              _context3.next = 5;
+              _context3.next = 4;
               return this.clearCache('orderGoods');
 
-            case 5:
+            case 4:
               goodsList.forEach(function (item, cidx) {
                 item.foods.forEach(function (food, fidx) {
                   var _key = "goodsList[".concat(cidx, "].foods[").concat(fidx, "].num");
@@ -284,23 +273,23 @@ Page({
                 });
               }); // wx.hideLoading();
 
-              _context3.next = 11;
+              _context3.next = 10;
               break;
 
-            case 8:
-              _context3.prev = 8;
+            case 7:
+              _context3.prev = 7;
               _context3.t0 = _context3["catch"](0);
               wx.showToast({
                 title: '操作失败',
                 icon: 'none'
               });
 
-            case 11:
+            case 10:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, this, [[0, 8]]);
+      }, _callee3, this, [[0, 7]]);
     }));
 
     function clearCar() {
@@ -324,26 +313,24 @@ Page({
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              console.log('this.submited', this.submited);
-
               if (!this.submited) {
-                _context5.next = 3;
+                _context5.next = 2;
                 break;
               }
 
               return _context5.abrupt("return");
 
-            case 3:
+            case 2:
               this.submited = true;
-              _context5.prev = 4;
-              _context5.next = 7;
+              _context5.prev = 3;
+              _context5.next = 6;
               return this.saveCache();
 
-            case 7:
+            case 6:
               car = _context5.sent;
 
               if (!(car.length === 0)) {
-                _context5.next = 12;
+                _context5.next = 11;
                 break;
               }
 
@@ -354,7 +341,7 @@ Page({
               this.submited = false;
               return _context5.abrupt("return");
 
-            case 12:
+            case 11:
               // 这样做 === deep clone对象，避免污染源对象
               goodsList = JSON.parse(JSON.stringify(this.data.goodsList));
               userinfo = JSON.parse(JSON.stringify(this.data.userinfo));
@@ -371,7 +358,6 @@ Page({
                 shopinfo: this.data.shopinfo,
                 menu_detail: menu_detail
               };
-              console.log('target_data', target_data);
               app.$http.request('/consumer/submitorder', {
                 // 序列化为了后台能获取到对象类型数据
                 userinfo: JSON.stringify(target_data.userinfo),
@@ -387,7 +373,7 @@ Page({
                     while (1) {
                       switch (_context4.prev = _context4.next) {
                         case 0:
-                          console.log('res------------------------', res.orderinfo);
+                          console.log('api /consumer/submitorder', res.orderinfo);
                           res = JSON.parse(res); // 判断orderinfo里面是否有参数
 
                           if (!(Object.keys(res.orderinfo).length > 0)) {
@@ -446,12 +432,12 @@ Page({
               }()).catch(function (err) {
                 _this3.submited = false;
               });
-              _context5.next = 26;
+              _context5.next = 24;
               break;
 
-            case 21:
-              _context5.prev = 21;
-              _context5.t0 = _context5["catch"](4);
+            case 19:
+              _context5.prev = 19;
+              _context5.t0 = _context5["catch"](3);
               console.log(_context5.t0);
               this.submited = false;
               wx.showToast({
@@ -459,12 +445,12 @@ Page({
                 icon: 'none'
               });
 
-            case 26:
+            case 24:
             case "end":
               return _context5.stop();
           }
         }
-      }, _callee5, this, [[4, 21]]);
+      }, _callee5, this, [[3, 19]]);
     }));
 
     function submitOrder() {
@@ -622,9 +608,7 @@ Page({
     wx.getSystemInfo({
       success: function success(res) {
         // percent 为当前设备1rpx对应的px值
-        console.log('res.windowWidth', res, res.windowWidth);
         var percent = res.windowWidth / 750;
-        console.log('-==-====-=-==-', right_titleRpxHeight * percent);
         that.setData({
           winHeight: res.windowHeight,
           right_titleHeight: Number(right_titleRpxHeight * percent),
@@ -632,16 +616,11 @@ Page({
           left_titleHeight: Number(left_titleRpxHeight * percent)
         });
       }
-    }); // 把请求到的 list 中的数据赋值给  listChild1
-
-    var goodsList = this.data.goodsList; // 定义一个 names ，用于存放 scroll-into-view 使用的 id
-
-    var names = '';
+    });
+    var goodsList = this.data.goodsList;
     var goodsIds = [];
     var goodsHeights = [];
-    console.log('listChild1', goodsList);
-    this.wrapMenuHeight = goodsList.length * this.data.left_titleHeight;
-    console.log(' this.wrapMenuHeight', this.data.right_contentHeight); // 循环 listChild1 中的每一项
+    this.wrapMenuHeight = goodsList.length * this.data.left_titleHeight; // 循环 goodsList 中的每一项
 
     goodsList.forEach(function (good) {
       goodsIds.push(good.id);
@@ -664,11 +643,9 @@ Page({
     }); // 得到最大的滑动距离，也就是父级滑动到底部时距离顶部的距离
 
     this.max = this.boxScrollTop;
-    console.log('is Bottom ooooooooooooooo', this.boxScrollTop);
   },
   boxScroll: function boxScroll(e) {
-    this.boxScrollTop = e.detail.scrollTop;
-    console.log('----ss-s-s-', this.max, this.max && this.max > e.detail.scrollTop); // 当max最大滑动距离存在，且 此时滑动的距离小于最大滑动距离
+    this.boxScrollTop = e.detail.scrollTop; // 当max最大滑动距离存在，且 此时滑动的距离小于最大滑动距离
     // 就是顶部需要隐藏的那一部分如果出来了，那么就canDown触发隐藏
 
     if (this.max && this.max > e.detail.scrollTop) {
@@ -733,9 +710,8 @@ Page({
     var left_scrollTop = this.data.left_titleHeight * indexNow;
 
     if (indexNow !== this.indexOld) {
-      console.log('金UR--------------', this.goodsIds[indexNow]); // let arr = new Array(Math.abs(this.indexOld - indexNow));
+      // let arr = new Array(Math.abs(this.indexOld - indexNow));
       // this.some(arr.length, indexNow - this.indexOld, this.indexOld);
-
       this.indexOld = indexNow;
       this.setData({
         // scrollTop: left_scrollTop,

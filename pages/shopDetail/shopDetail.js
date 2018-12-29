@@ -40,16 +40,14 @@ Page({
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              console.log('-1-1-1-1-1-11-', wx.getStorageSync('submitGoods'));
-              _context.prev = 1;
-              _context.next = 4;
+              _context.prev = 0;
+              _context.next = 3;
               return this.clearCache('remarks');
 
-            case 4:
+            case 3:
               // 先清除备注缓存
               submitGoods = JSON.parse(wx.getStorageSync('submitGoods') || '{}');
               orderinfo = JSON.parse(wx.getStorageSync('orderinfo') || '{}');
-              console.log('orderinfo', orderinfo);
               this.setData({
                 submitGoods: submitGoods,
                 orderinfo: orderinfo
@@ -57,20 +55,20 @@ Page({
               shop_time = submitGoods.shopinfo.shop_time;
               order_time = orderinfo.songdatime;
               this.handlerTime(order_time, shop_time);
-              _context.next = 16;
+              _context.next = 14;
               break;
 
-            case 13:
-              _context.prev = 13;
-              _context.t0 = _context["catch"](1);
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](0);
               console.log('shopDetail onload  error', _context.t0);
 
-            case 16:
+            case 14:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, this, [[1, 13]]);
+      }, _callee, this, [[0, 11]]);
     }));
 
     function onLoad(_x) {
@@ -80,8 +78,6 @@ Page({
     return onLoad;
   }(),
   onShow: function onShow() {
-    console.log(' on show -------------------------------', wx.getStorageSync('remarks'));
-
     var _JSON$parse = JSON.parse(wx.getStorageSync('remarks') || '{}'),
         remarks = _JSON$parse.remarks;
 
@@ -102,11 +98,9 @@ Page({
         startTime = _shop_time$split2[0],
         endTime = _shop_time$split2[1];
 
-    console.log('order_time', order_time);
     var orderTime = new Date(order_time * 1000); // 服务器时间是以秒为单位，换算为毫秒
     // let orderTime = new Date(); // 服务器时间是以秒为单位，换算为毫秒
 
-    console.log('orderTime', orderTime, orderTime.getHours());
     var orderHour = parseFloat(orderTime.getHours());
     var t = endTime - orderHour; // 剩余时间 h
 
@@ -136,7 +130,6 @@ Page({
       }
     }
 
-    console.log('hours', hours);
     days.push(orderTime.day_mow()); // 目前只需要当天的
 
     this.setData((_this$setData = {}, _defineProperty(_this$setData, 'time_format.hours', hours), _defineProperty(_this$setData, 'time_format.days', days), _this$setData)); // 补0
@@ -248,12 +241,11 @@ Page({
             case 3:
               this.submited = true;
               _this$data = this.data, time_format = _this$data.time_format, checkIndex = _this$data.checkIndex, submitGoods = _this$data.submitGoods, orderinfo = _this$data.orderinfo;
-              console.log('time_format.hours[checkIndex]', time_format.hours[checkIndex]);
               songdatime = time_format.hours[checkIndex] && time_format.hours[checkIndex].time || orderinfo.songdatime;
-              _context4.next = 9;
+              _context4.next = 8;
               return app.Util.turn2Promise(wx.login);
 
-            case 9:
+            case 8:
               res = _context4.sent;
 
               if (res.code) {
@@ -267,7 +259,7 @@ Page({
                   shopinfo: JSON.stringify(submitGoods.shopinfo),
                   code: res.code
                 }, 'post').then(function (res) {
-                  console.log('shop detail submit ', res);
+                  console.log('api /consumer/orderpay', res);
 
                   if (res.jsapi) {
                     var params = JSON.parse(res.jsapi);
@@ -316,21 +308,21 @@ Page({
                 });
               }
 
-              _context4.next = 17;
+              _context4.next = 16;
               break;
 
-            case 13:
-              _context4.prev = 13;
+            case 12:
+              _context4.prev = 12;
               _context4.t0 = _context4["catch"](0);
               this.submited = false;
               console.log('goShopSuccess error', _context4.t0);
 
-            case 17:
+            case 16:
             case "end":
               return _context4.stop();
           }
         }
-      }, _callee4, this, [[0, 13]]);
+      }, _callee4, this, [[0, 12]]);
     }));
 
     function goShopSuccess() {

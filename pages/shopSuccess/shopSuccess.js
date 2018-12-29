@@ -39,9 +39,7 @@ Page({
           _JSON$parse$remarks = _JSON$parse.remarks,
           remarks = _JSON$parse$remarks === void 0 ? '' : _JSON$parse$remarks;
 
-      var submitGoods = JSON.parse(wx.getStorageSync('submitGoods'));
-      console.log('remarks', JSON.parse(wx.getStorageSync('submitGoods')));
-      console.log('options', orderid); // submitGoods['menu_detail'] = [...submitGoods['menu_detail'], ...submitGoods['menu_detail'], ...submitGoods['menu_detail'], ...submitGoods['menu_detail']];
+      var submitGoods = JSON.parse(wx.getStorageSync('submitGoods')); // submitGoods['menu_detail'] = [...submitGoods['menu_detail'], ...submitGoods['menu_detail'], ...submitGoods['menu_detail'], ...submitGoods['menu_detail']];
 
       if (!orderid) {
         wx.showToast({
@@ -52,12 +50,10 @@ Page({
       }
 
       app.$http.request("/consumer/paysuccess?orderid=".concat(orderid), {}).then(function (res) {
-        console.log('res--->', JSON.parse(res));
-
         if (res) {
           res = JSON.parse(res);
           res['goodsinfo'] = JSON.parse(res['goodsinfo']);
-          console.log("res['goodsinfo']", res);
+          console.log("api /consumer/paysuccess?orderid=".concat(orderid), JSON.parse(res));
 
           _this.setData({
             remarks: remarks,
@@ -98,7 +94,6 @@ Page({
     }
   },
   callSomeOne: function callSomeOne(e) {
-    console.log(e);
     var phoneNumber = e.currentTarget.dataset.phone; // const { phoneNumber } = this.data;
 
     if (!phoneNumber) {
@@ -155,9 +150,6 @@ Page({
               return this.clearCache('orderGoods');
 
             case 8:
-              console.log('on unload');
-
-            case 9:
             case "end":
               return _context.stop();
           }
