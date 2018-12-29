@@ -284,7 +284,7 @@ Page({
                       package: params.package,
                       signType: params.signType,
                       paySign: params.paySign,
-                      success: function success(res) {
+                      success: function success(suc) {
                         wx.redirectTo({
                           url: "/pages/shopSuccess/shopSuccess?orderid=".concat(res.order_id),
                           complete: function complete() {
