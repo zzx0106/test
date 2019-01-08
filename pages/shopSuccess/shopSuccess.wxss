@@ -74,6 +74,7 @@ page {
 .page .shop-detail-body .text-title-1 {
   height: 166rpx;
   position: relative;
+  overflow: hidden;
 }
 
 .page .shop-detail-body .text-title-1 .bg-title {
@@ -117,7 +118,8 @@ page {
 }
 
 .page .shop-detail-body .text-title-1 .title-box .icon-title image {
-  width: 100%;
+  width: 188rpx;
+  height: 166rpx;
 }
 
 .page .shop-detail-body .text-title-2 {
@@ -199,23 +201,27 @@ page {
 
 .page .shop-detail-body .shop-container .top-style .icon-title {
   width: 24rpx;
+  height: 24rpx;
   margin-right: 22rpx;
   line-height: 0;
 }
 
 .page .shop-detail-body .shop-container .top-style .icon-title image {
   width: 24rpx;
+  height: 24rpx;
 }
 
 .page .shop-detail-body .shop-container .icon-tel {
   width: 32rpx;
+  height: 32rpx;
   position: absolute;
   top: 79rpx;
   right: 90rpx;
 }
 
 .page .shop-detail-body .shop-container .icon-tel image {
-  width: 100%;
+  width: 32rpx;
+  height: 32rpx;
 }
 
 .page .shop-detail-body .shop-car-list-body {
@@ -272,12 +278,14 @@ page {
 
 .page .shop-detail-body .shop-car-list-body .title .text-title1 .icon-title {
   width: 24rpx;
+  height: 24rpx;
   margin-right: 22rpx;
   line-height: 0;
 }
 
 .page .shop-detail-body .shop-car-list-body .title .text-title1 .icon-title image {
   width: 24rpx;
+  height: 24rpx;
 }
 
 .page .shop-detail-body .shop-car-list-body .title .text-title2 {
@@ -435,12 +443,14 @@ page {
 
 .page .shop-detail-body .shop-order-info .title .text-title1 .icon-title {
   width: 26rpx;
+  height: 26rpx;
   margin-right: 22rpx;
   line-height: 0;
 }
 
 .page .shop-detail-body .shop-order-info .title .text-title1 .icon-title image {
   width: 26rpx;
+  height: 26rpx;
 }
 
 .page .shop-detail-body .shop-order-info .title .text-title2 {
@@ -530,6 +540,7 @@ page {
 
 .page .shop-detail-body .item-style .icon-title image {
   width: 24rpx;
+  height: 29rpx;
 }
 
 .page .shop-detail-body .item-style .text-gray {
@@ -600,13 +611,13 @@ page {
 
 .page .shop-detail-body .enter-box .icon-title2 {
   width: 24rpx;
-  width: 24rpx;
   height: 29rpx;
   line-height: 0;
 }
 
 .page .shop-detail-body .enter-box .icon-title2 image {
   width: 14rpx;
+  height: 29rpx;
 }
 
 .page .shop-detail-body .text-black {

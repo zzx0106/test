@@ -12,7 +12,7 @@
             <view class="count">{{len}}/50</view>
         </view>
         <view class="flex f-end">
-            <view class="sub-bn {{(len >= 5) ? 'isBlack' : ''}}" bindtap="submit">确定</view>
+            <view class="sub-bn isBlack" bindtap="submit">确定</view>
         </view>
     </view>
 </view>

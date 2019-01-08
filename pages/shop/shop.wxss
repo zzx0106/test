@@ -298,6 +298,7 @@ page {
 
 .page .head-body-scroll {
   height: 100%;
+  background: #fff;
 }
 
 .page .shop-head-box {
@@ -459,7 +460,8 @@ page {
 }
 
 .page .shop-head-box .shop-head .head-title3 .head-right .img-call {
-  width: 100%;
+  width: 28rpx;
+  height: 28rpx;
 }
 
 .page .shop-head-box .shop-head .avatar {
@@ -834,6 +836,8 @@ page {
   line-height: 97rpx;
   color: #fff;
   font-size: 32rpx;
+  border-radius: 0;
+  background: transparent;
 }
 
 .loading {

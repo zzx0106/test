@@ -29,7 +29,9 @@ Page({
     showShadow: false,
     anima_drawer: {},
     // 抽屉效果动画
-    anima_opacity: {} // 渐变
+    anima_opacity: {},
+    // 渐变
+    mobile: '' // 手机号
 
   },
   onPageScroll: function onPageScroll(e) {},
@@ -39,35 +41,54 @@ Page({
     regeneratorRuntime.mark(function _callee(options) {
       var _this = this;
 
-      var shop_car;
+      var qr, shop_car;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return this.getVerify('https://b.cmfspay.com/t/Zur');
+              _context.prev = 0;
 
-            case 2:
-              // if (options && options.q) {
-              //     wx.showLoading();
-              //     let qr = decodeURIComponent(options.q);
-              //     await this.getVerify(qr);
-              //     console.log('q', qr);
-              // }
-              // if (!wx.getStorageSync('sn')) {
-              //     wx.redirectTo('/pages/index/index');
-              //     return;
-              // }
+              if (!(options && options.q)) {
+                _context.next = 7;
+                break;
+              }
+
+              wx.showLoading();
+              qr = decodeURIComponent(options.q);
+              _context.next = 6;
+              return this.getVerify(qr);
+
+            case 6:
+              console.log('q', qr);
+
+            case 7:
+              if (!(!wx.getStorageSync('shop_id') || !wx.getStorageSync('door_number'))) {
+                _context.next = 10;
+                break;
+              }
+
+              wx.showToast({
+                title: '商户还未绑定该二维码',
+                icon: 'none'
+              });
+              return _context.abrupt("return");
+
+            case 10:
               shop_car = wx.getStorageSync('orderGoods') || '[]';
               shop_car = JSON.parse(shop_car);
               this.setData({
                 myAvatar: wx.getStorageSync('avatar')
-              });
-              app.$http.request('/consumer/waimaiindex', {
-                suid: '2'
-              }, 'post').then(function (res) {
+              }); // let post_data = {
+              //     door_number: this.door_number || '0',
+              //     shop_id: this.shop_id || '0',
+              //     code: this.code,
+              // };
+
+              app.$http.request('/consumer/waimaiindex', {}, 'post', {}, true).then(function (res) {
                 console.log('api /consumer/waimaiindex ', JSON.parse(res));
                 var res_data = JSON.parse(res);
+                console.log('res_data', res_data);
+                var shopinfo = res_data.shopinfo;
                 var goods_list = res_data.menu_detail || []; //     // 同步缓存购物车到请求的数据中
 
                 if (shop_car.length > 0) {
@@ -82,11 +103,22 @@ Page({
                     });
                     goods = goods;
                   });
-                } // left 置顶
+                }
 
+                var _JSON$parse = JSON.parse(shopinfo.shop_time),
+                    start_time = _JSON$parse.start_time,
+                    end_time = _JSON$parse.end_time;
+
+                var start = new Date(parseInt(start_time) * 1000).Format('hh:mm');
+                var end = new Date(parseInt(end_time) * 1000).Format('hh:mm');
+                var s = parseInt(new Date(parseInt(start_time) * 1000).Format('hh'));
+                var e = parseInt(new Date(parseInt(end_time) * 1000).Format('hh'));
+                shopinfo.shop_time_str = e - s < 0 ? "".concat(start, " \u81F3\u6B21\u65E5 ").concat(end) : "".concat(start, " \u81F3 ").concat(end);
+                console.log('goods_list', shopinfo, parseInt(start_time) * 1000); // left 置顶
 
                 _this.setData({
-                  shopinfo: res_data.shopinfo,
+                  mobile: res_data.userinfo.mobile,
+                  shopinfo: shopinfo,
                   userinfo: res_data.userinfo,
                   goodsList: goods_list,
                   curNav: goods_list.length > 0 ? goods_list[0].category : ''
@@ -94,13 +126,23 @@ Page({
 
                 _this.initScroll();
               });
+              _context.next = 19;
+              break;
 
-            case 6:
+            case 16:
+              _context.prev = 16;
+              _context.t0 = _context["catch"](0);
+              console.log('onLoad err shop ', _context.t0);
+
+            case 19:
+              console.log('option', options); // await this.getVerify('https://b.cmfspay.com/t/Zur');
+
+            case 20:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, this);
+      }, _callee, this, [[0, 16]]);
     }));
 
     function onLoad(_x) {
@@ -145,7 +187,7 @@ Page({
                 res = _context2.sent;
 
                 if (!res.code) {
-                  _context2.next = 12;
+                  _context2.next = 14;
                   break;
                 }
 
@@ -157,16 +199,22 @@ Page({
 
               case 6:
                 val = _context2.sent;
+                // this.door_number = val.door_number;
+                // this.shop_id = val.shop_id;
+                // this.code = res.code;
                 // if(!wx.getStorageSync('sn')){
-                wx.setStorageSync('sn', '40007000000017'); // wx.setStorageSync('sn', val.sn);
+                // wx.setStorageSync('sn', '40007000000017');
+                // wx.setStorageSync('sn', val.sn);
                 // }
-
+                wx.setStorageSync('code', res.code);
+                wx.setStorageSync('shop_id', val.shop_id);
+                wx.setStorageSync('door_number', val.door_number);
                 wx.setStorageSync('openid', val.openid);
                 resolve();
-                _context2.next = 12;
+                _context2.next = 14;
                 break;
 
-              case 12:
+              case 14:
               case "end":
                 return _context2.stop();
             }
@@ -298,6 +346,85 @@ Page({
 
     return clearCar;
   }(),
+  getPhoneNumber: function () {
+    var _getPhoneNumber = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee4(e) {
+      var code, val;
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              console.log(e.detail.errMsg);
+              console.log(e.detail.iv);
+              console.log(e.detail.encryptedData);
+
+              if (!(e.detail.errMsg == 'getPhoneNumber:fail user deny')) {
+                _context4.next = 6;
+                break;
+              }
+
+              wx.showToast({
+                title: '授权失败',
+                icon: 'none'
+              });
+              return _context4.abrupt("return");
+
+            case 6:
+              code = wx.getStorageSync('code') || ''; // let code = await app.Util.getCode();
+
+              if (!code) {
+                _context4.next = 14;
+                break;
+              }
+
+              _context4.next = 10;
+              return app.$http.request('/consumer/authmobile', {
+                encryptedData: e.detail.encryptedData,
+                iv: e.detail.iv,
+                code: code
+              }, 'post');
+
+            case 10:
+              val = _context4.sent;
+
+              if (val) {
+                this.setData({
+                  mobile: val
+                });
+                wx.showToast({
+                  title: '授权成功'
+                });
+              } else {
+                wx.showToast({
+                  title: '手机号获取失败',
+                  icon: 'none'
+                });
+              }
+
+              _context4.next = 15;
+              break;
+
+            case 14:
+              wx.showToast({
+                title: 'code获取失败',
+                icon: 'none'
+              });
+
+            case 15:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, this);
+    }));
+
+    function getPhoneNumber(_x4) {
+      return _getPhoneNumber.apply(this, arguments);
+    }
+
+    return getPhoneNumber;
+  }(),
 
   /**
    * 提交订单
@@ -305,32 +432,60 @@ Page({
   submitOrder: function () {
     var _submitOrder = _asyncToGenerator(
     /*#__PURE__*/
-    regeneratorRuntime.mark(function _callee5() {
+    regeneratorRuntime.mark(function _callee6() {
       var _this3 = this;
 
-      var car, goodsList, userinfo, menu_detail, target_data;
-      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+      var _this$data, mobile, shopinfo, car, goodsList, userinfo, menu_detail, target_data;
+
+      return regeneratorRuntime.wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context5.prev = _context5.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
-              if (!this.submited) {
-                _context5.next = 2;
+              _this$data = this.data, mobile = _this$data.mobile, shopinfo = _this$data.shopinfo;
+
+              if (mobile) {
+                _context6.next = 4;
                 break;
               }
 
-              return _context5.abrupt("return");
+              wx.showToast({
+                title: '当前用户未绑定手机号，请前往首页绑定',
+                icon: 'none'
+              });
+              return _context6.abrupt("return");
 
-            case 2:
+            case 4:
+              if (!(shopinfo.business_status !== '1')) {
+                _context6.next = 7;
+                break;
+              }
+
+              wx.showToast({
+                title: '店家休息中',
+                icon: 'none'
+              });
+              return _context6.abrupt("return");
+
+            case 7:
+              if (!this.submited) {
+                _context6.next = 9;
+                break;
+              }
+
+              return _context6.abrupt("return");
+
+            case 9:
+              // 限制用户多次点击提交
               this.submited = true;
-              _context5.prev = 3;
-              _context5.next = 6;
+              _context6.prev = 10;
+              _context6.next = 13;
               return this.saveCache();
 
-            case 6:
-              car = _context5.sent;
+            case 13:
+              car = _context6.sent;
 
               if (!(car.length === 0)) {
-                _context5.next = 11;
+                _context6.next = 18;
                 break;
               }
 
@@ -339,13 +494,12 @@ Page({
                 icon: 'none'
               });
               this.submited = false;
-              return _context5.abrupt("return");
+              return _context6.abrupt("return");
 
-            case 11:
+            case 18:
               // 这样做 === deep clone对象，避免污染源对象
               goodsList = JSON.parse(JSON.stringify(this.data.goodsList));
-              userinfo = JSON.parse(JSON.stringify(this.data.userinfo));
-              userinfo['total_price'] = this.totalGoodsList().totalMoney; // 应后台需求，这里过滤掉所有没有num的数组元素
+              userinfo = JSON.parse(JSON.stringify(this.data.userinfo)); // 应后台需求，这里过滤掉所有没有num的数组元素
 
               menu_detail = goodsList.map(function (goods) {
                 goods['foods'] = goods['foods'].filter(function (food) {
@@ -355,47 +509,46 @@ Page({
               });
               target_data = {
                 userinfo: userinfo,
-                shopinfo: this.data.shopinfo,
+                shopinfo: shopinfo,
                 menu_detail: menu_detail
               };
               app.$http.request('/consumer/submitorder', {
+                total_price: this.totalGoodsList().totalMoney,
                 // 序列化为了后台能获取到对象类型数据
-                userinfo: JSON.stringify(target_data.userinfo),
-                shopinfo: JSON.stringify(target_data.shopinfo),
                 menu_detail: JSON.stringify(target_data.menu_detail)
               }, 'post').then(
               /*#__PURE__*/
               function () {
                 var _ref2 = _asyncToGenerator(
                 /*#__PURE__*/
-                regeneratorRuntime.mark(function _callee4(res) {
-                  return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                regeneratorRuntime.mark(function _callee5(res) {
+                  return regeneratorRuntime.wrap(function _callee5$(_context5) {
                     while (1) {
-                      switch (_context4.prev = _context4.next) {
+                      switch (_context5.prev = _context5.next) {
                         case 0:
-                          console.log('api /consumer/submitorder', res.orderinfo);
-                          res = JSON.parse(res); // 判断orderinfo里面是否有参数
+                          console.log('api /consumer/submitorder', res.orderinfo); // 判断orderinfo里面是否有参数
 
                           if (!(Object.keys(res.orderinfo).length > 0)) {
-                            _context4.next = 15;
+                            _context5.next = 15;
                             break;
                           }
 
                           res['orderinfo']['songdatime'] = res['songdatime']; // 将songdatime字段合入orderinfo中传递
 
-                          _context4.next = 6;
+                          res['orderinfo']['total_price'] = _this3.totalGoodsList().totalMoney;
+                          _context5.next = 6;
                           return _this3.setCache('submitGoods', target_data);
 
                         case 6:
-                          _context4.next = 8;
+                          _context5.next = 8;
                           return _this3.clearCache('orderinfo');
 
                         case 8:
-                          _context4.next = 10;
+                          _context5.next = 10;
                           return _this3.setCache('orderinfo', res.orderinfo);
 
                         case 10:
-                          _context4.next = 12;
+                          _context5.next = 12;
                           return _this3.clearCache('remarks');
 
                         case 12:
@@ -407,7 +560,7 @@ Page({
                               _this3.submited = false;
                             }
                           });
-                          _context4.next = 18;
+                          _context5.next = 18;
                           break;
 
                         case 15:
@@ -416,41 +569,42 @@ Page({
                             title: '请求失败',
                             icon: 'none'
                           });
-                          return _context4.abrupt("return");
+                          return _context5.abrupt("return");
 
                         case 18:
                         case "end":
-                          return _context4.stop();
+                          return _context5.stop();
                       }
                     }
-                  }, _callee4, this);
+                  }, _callee5, this);
                 }));
 
-                return function (_x4) {
+                return function (_x5) {
                   return _ref2.apply(this, arguments);
                 };
               }()).catch(function (err) {
                 _this3.submited = false;
+                console.log('api /consumer/submitorder error', err);
               });
-              _context5.next = 24;
+              _context6.next = 30;
               break;
 
-            case 19:
-              _context5.prev = 19;
-              _context5.t0 = _context5["catch"](3);
-              console.log(_context5.t0);
+            case 25:
+              _context6.prev = 25;
+              _context6.t0 = _context6["catch"](10);
+              console.log(_context6.t0);
               this.submited = false;
               wx.showToast({
                 title: '操作失败',
                 icon: 'none'
               });
 
-            case 24:
+            case 30:
             case "end":
-              return _context5.stop();
+              return _context6.stop();
           }
         }
-      }, _callee5, this, [[3, 19]]);
+      }, _callee6, this, [[10, 25]]);
     }));
 
     function submitOrder() {
@@ -623,7 +777,8 @@ Page({
     this.wrapMenuHeight = goodsList.length * this.data.left_titleHeight; // 循环 goodsList 中的每一项
 
     goodsList.forEach(function (good) {
-      goodsIds.push(good.id);
+      console.log('good', good);
+      goodsIds.push(good.category);
       var height = good.foods.length * _this6.data.right_contentHeight + _this6.data.right_titleHeight - 5;
       goodsHeights.push(height);
     });
@@ -713,6 +868,7 @@ Page({
       // let arr = new Array(Math.abs(this.indexOld - indexNow));
       // this.some(arr.length, indexNow - this.indexOld, this.indexOld);
       this.indexOld = indexNow;
+      console.log('this.goodsIds[indexNow]', this.goodsIds, indexNow);
       this.setData({
         // scrollTop: left_scrollTop,
         leftTop: this.wrapMenuHeight / 2 - 50,

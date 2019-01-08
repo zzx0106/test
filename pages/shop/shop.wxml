@@ -46,7 +46,7 @@
         </view>
     </view>
     <view class="bg-img">
-        <image mode="widthFix" src="https://res.cmfspay.com/static/travel/img/mapp/image_home_backgrond@3x.png" />
+        <image mode="widthFix" src="https://res.cmfspay.com/static/travel/img/mapp/shop_bg44@2x.png" />
     </view>
     <!-- <view class="navigation t-center">
         <view class="back-bn" bindtap="goBack">
@@ -63,23 +63,25 @@
                         <view class="head-left shop-status">
                             <image src="../../common/img/shop_status@2x.png" />
                             <view class="shop-status-info">
-                                <text class="bfor">{{shopinfo.business_status}}</text>
-                                <text class="aft">营业时间    09:00~23:00</text>
+                                <view class="bfor">
+                                    {{shop_status.handler(shopinfo.business_status)}}
+                                </view>
+                                <view class="aft">营业时间    {{shopinfo.shop_time_str}}</view>
                             </view>
                         </view>
                     </view>
                     <view class="head-title3">
                         <view class="head-left">
                             <text class="bfor">欢迎光临~</text>
-                            <text class="aft">酒店服务热线：{{shopinfo.mobile}}</text>
+                            <text class="aft">酒店服务热线：{{shopinfo.service_phone}}</text>
                         </view>
                         <view class="head-center"></view>
                         <view class="head-right">
-                            <image data-phone="{{shopinfo.mobile}}" bind:tap="callSomeOne" mode="widthFix" class="img-call" src="../../common/img/phone@2x.png" />
+                            <image data-phone="{{shopinfo.service_phone}}" bind:tap="callSomeOne" mode="widthFix" class="img-call" src="../../common/img/phone@2x.png" />
                         </view>
                     </view>
                     <view class="avatar">
-                        <image bind:tap="goIndexPage" mode="widthFix" class="img-avatar" src="{{myAvatar}}" />
+                        <image mode="widthFix" class="img-avatar" src="{{shopinfo.logo_img}}" />
                     </view>
                 </view>
             </view>
@@ -117,13 +119,13 @@
                                             </view>
                                             <view class="goods-handler">
                                                 <view wx:if="{{goodItem.num > 0}}" class="goods-btn goods-sub" data-goods-index="{{goodsIndex}}" data-classify-index="{{classifyIndex}}" data-food="{{goodItem}}" bind:tap="removeGoods">
-                                                    <image  src="../../common/img/food_verb@3x.png" />
+                                                    <image src="../../common/img/food_verb@3x.png" />
                                                 </view>
                                                 <view wx:if="{{goodItem.num > 0}}" class="goods-num">
                                                     <text>{{goodItem.num || 0}}</text>
                                                 </view>
                                                 <view class="goods-btn" data-classify-index="{{classifyIndex}}" data-goods-index="{{goodsIndex}}" data-food="{{goodItem}}" bind:tap="addGoods">
-                                                    <image  src="../../common/img/food_add@3x.png" />
+                                                    <image src="../../common/img/food_add@3x.png" />
                                                 </view>
                                             </view>
                                         </view>
@@ -150,7 +152,8 @@
             </view>
         </view>
         <view class="footer-right">
-            <view class="btn-submit" bind:tap="submitOrder">提交订单</view>
+            <button wx:if="{{!mobile}}" class="btn-submit" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取手机号</button>
+            <view wx:else class="btn-submit" bind:tap="submitOrder">提交订单</view>
         </view>
     </view>
 </view>
@@ -183,4 +186,14 @@
 		return {N: totalNumber}
 	}
 	module.exports.C = C
+</wxs>
+<wxs module="shop_status">
+	function handler(status){
+        if(status === '1') {
+            return '营业中';
+        } else {
+            return '休息'
+        }
+	}
+	module.exports.handler = handler
 </wxs>

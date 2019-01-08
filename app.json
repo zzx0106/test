@@ -1,12 +1,13 @@
 {
     "pages": [
-        "pages/shop/shop",
-        "pages/myOrders/myOrders",
         "pages/index/index",
-        "pages/shopDetail/shopDetail",
+        "pages/shop/shop",
         "pages/shopSuccess/shopSuccess",
+        "pages/myOrders/myOrders",
+        "pages/shopDetail/shopDetail",
         "pages/consult/consult",
         "pages/shopRemarks/shopRemarks",
+        "pages/shopOrderList/shopOrderList",
         "pages/shopCarList/shopCarList",
         "pages/main/main",
         "pages/completePay/completePay",

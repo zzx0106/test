@@ -32,6 +32,8 @@ Page({
               console.log('index onload', options);
               self = this;
               showBack = false; //   this.setData({color:wx.getStorageSync('color')})
+              // wx.setStorageSync('shop_id', '');
+              // wx.setStorageSync('door_number', '');
 
               _context.next = 5;
               return this.getVerify();
@@ -117,8 +119,8 @@ Page({
               _context2.next = 10;
               return app.$http.request('/consumer/authmobile', {
                 encryptedData: e.detail.encryptedData,
-                iv: e.detail.iv // code: code,
-
+                iv: e.detail.iv,
+                code: code
               }, 'post');
 
             case 10:
@@ -191,24 +193,42 @@ Page({
                   return self.getVerify(res.result);
 
                 case 3:
-                  if (!wx.getStorageSync('sn')) {
-                    wx.showToast({
-                      title: '请扫描正确的货柜机二维码',
-                      icon: 'none'
+                  if (!(res.result.indexOf('/t/') > -1)) {
+                    _context3.next = 10;
+                    break;
+                  }
+
+                  if (wx.getStorageSync('sn')) {
+                    _context3.next = 7;
+                    break;
+                  }
+
+                  wx.showToast({
+                    title: '请扫描正确的货柜机二维码',
+                    icon: 'none'
+                  });
+                  return _context3.abrupt("return");
+
+                case 7:
+                  wx.navigateTo({
+                    url: '/pages/main/main'
+                  });
+                  _context3.next = 11;
+                  break;
+
+                case 10:
+                  if (res.result.indexOf('/tw/') > -1) {
+                    wx.navigateTo({
+                      url: '/pages/shop/shop?q=' + res.result
                     });
                   } else {
-                    console.log({
-                      // url: '/pages/main/main',
-                      url: '/pages/shop/shop'
-                    });
-                    wx.navigateTo({
-                      url: '/pages/main/main' // url: '/pages/shop/shop',
-                      // url: '/pages/shop/shop',
-
+                    wx.showToast({
+                      title: '请扫描正确的二维码',
+                      icon: 'none'
                     });
                   }
 
-                case 4:
+                case 11:
                 case "end":
                   return _context3.stop();
               }
@@ -246,7 +266,7 @@ Page({
               res = _context4.sent;
 
               if (!res.code) {
-                _context4.next = 13;
+                _context4.next = 14;
                 break;
               }
 
@@ -258,22 +278,23 @@ Page({
 
             case 6:
               val = _context4.sent;
+              console.log('val ', val);
               this.code = res.code; // if(!wx.getStorageSync('sn')){
 
               wx.setStorageSync('sn', val.sn);
               wx.setStorageSync('sid', val.sid); // }
 
-              wx.setStorageSync('openid', 'ohTKdwNfzqwE4WN8AwXet07wqIf4');
-              _context4.next = 14;
+              wx.setStorageSync('openid', val.openid);
+              _context4.next = 15;
               break;
 
-            case 13:
+            case 14:
               wx.showToast({
                 title: 'code获取失败',
                 icon: 'none'
               });
 
-            case 14:
+            case 15:
             case "end":
               return _context4.stop();
           }

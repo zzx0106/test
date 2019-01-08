@@ -18,19 +18,20 @@ Page({
     orderInfo: {},
     ordertime: '00:00',
     songdatime: '00:00',
-    shop_service_phone: ''
+    shop_service_phone: '',
+    qr: ''
   },
 
   /**
-   * 
-   * @param {String} orderid 传入的orderid 
+   *
+   * @param {String} orderId 传入的orderid
    * @param {String} from 从哪个页面过来的 暂时用不着，怕增加新的中间页，到时候使用
    */
   onLoad: function onLoad(_ref) {
     var _this = this;
 
-    var _ref$orderid = _ref.orderid,
-        orderid = _ref$orderid === void 0 ? '' : _ref$orderid,
+    var _ref$orderId = _ref.orderId,
+        orderId = _ref$orderId === void 0 ? '' : _ref$orderId,
         _ref$from = _ref.from,
         from = _ref$from === void 0 ? 'shopDetail' : _ref$from;
 
@@ -41,7 +42,7 @@ Page({
 
       var submitGoods = JSON.parse(wx.getStorageSync('submitGoods')); // submitGoods['menu_detail'] = [...submitGoods['menu_detail'], ...submitGoods['menu_detail'], ...submitGoods['menu_detail'], ...submitGoods['menu_detail']];
 
-      if (!orderid) {
+      if (!orderId) {
         wx.showToast({
           title: '订单号为空',
           icon: 'none'
@@ -49,19 +50,21 @@ Page({
         return;
       }
 
-      app.$http.request("/consumer/paysuccess?orderid=".concat(orderid), {}).then(function (res) {
+      app.$http.request("/consumer/paysuccess", {
+        orderId: orderId
+      }, 'post').then(function (res) {
         if (res) {
-          res = JSON.parse(res);
-          res['goodsinfo'] = JSON.parse(res['goodsinfo']);
-          console.log("api /consumer/paysuccess?orderid=".concat(orderid), JSON.parse(res));
+          console.log("api orderId=".concat(orderId), res);
+          console.log('res.songdatime', res.songdatime);
 
           _this.setData({
+            qr: res.qr || '',
             remarks: remarks,
             submitGoods: submitGoods,
             orderInfo: res,
             order_status_str: _this.orderStatusHandler(res.order_status),
             order_status: res.order_status,
-            pay_type: _this.payTypeHandler(res.$pay_type),
+            pay_type: _this.payTypeHandler(res.pay_type),
             songdatime: new Date(res.songdatime * 1000).Format('hh:mm'),
             ordertime: new Date(parseInt(res.createtime) * 1000).Format('yyyy-MM-dd hh:mm:ss'),
             shop_service_phone: res.shop_service_phone
@@ -119,8 +122,9 @@ Page({
     }
   },
   goShop: function goShop() {
+    var qr = this.data.qr || '';
     wx.reLaunch({
-      url: '/pages/shop/shop'
+      url: '/pages/shop/shop?q=' + qr
     });
   },
   // onShow: function () {

@@ -13,18 +13,21 @@ var request = function request(url, data, method) {
   requestData.sn = wx.getStorageSync('sn') || '';
   requestData.sid = wx.getStorageSync('sid') || '';
   requestData.openid = wx.getStorageSync('openid') || '';
+  requestData.door_number = wx.getStorageSync('door_number') || '';
+  requestData.shop_id = wx.getStorageSync('shop_id') || '';
+  requestData.code = wx.getStorageSync('code') || '';
   return new Promise(function (resolve, reject) {
     if (!noloading) wx.showLoading();
     wx.request({
-      url: 'http://mapp-t.3cuc.com.cn' + url,
-      // dev
-      // url: 'https://mapp-t.cmfspay.com' + url, //prod
+      // url: 'http://mapp-t.3cuc.com.cn' + url, // dev
+      url: 'https://mapp-t.cmfspay.com' + url,
+      //prod
       data: Object.assign(requestData, data),
       header: Object.assign({}, headerConfig, config),
       //合并传递进来的配置
       method: method || 'GET',
       success: function success(result) {
-        console.log(Object.assign(requestData, data));
+        console.log("api ".concat(url), result);
 
         if (result.statusCode === 200) {
           if (!noloading) wx.hideLoading();
@@ -38,9 +41,11 @@ var request = function request(url, data, method) {
             });
             reject("\u8BF7\u6C42\u5730\u5740\u4E0D\u5B58\u5728: ".concat(result.config.url));
           } else {
+            console.log('进入错误提示 error', result.data.msg);
             wx.showToast({
-              title: result.data.msg,
-              icon: 'none'
+              title: result.data.msg || '未知错误',
+              icon: 'none',
+              duration: 2000
             });
             reject(result.data.msg);
           } // 根据状态吗判断错误

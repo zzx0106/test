@@ -178,7 +178,7 @@ Page({
     if (!this.fetchStart && this.data.orderList.length > 0) {
       console.log('onReachBottom');
       this.setData({
-        showLoadingText: true
+        showLoadingText: this.data.loadingComplete ? false : true
       }, function () {
         //setData引起的界面更新渲染完毕后的回调函数
         console.log('success');
@@ -237,7 +237,8 @@ Page({
 
               // 当手动刷新没数据时才会显示 “数据加载完毕”
               this.setData({
-                loadingComplete: isRefresh && true
+                loadingComplete: isRefresh && true,
+                showLoadingText: false
               });
               return _context2.abrupt("return");
 
@@ -296,9 +297,74 @@ Page({
 
     return fetchOrderList;
   }(),
+  setCache: function setCache(key) {
+    var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    return new Promise(function (res, rej) {
+      wx.setStorage({
+        key: key,
+        data: JSON.stringify(data),
+        success: function success() {
+          res();
+        },
+        fail: function fail(err) {
+          wx.showToast({
+            title: '操作失败',
+            icon: 'none'
+          });
+          rej(err);
+        }
+      });
+    });
+  },
+  goShopOrderList: function () {
+    var _goShopOrderList = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee3(e) {
+      var index;
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              index = e.currentTarget.dataset.index;
+              console.log();
+              _context3.next = 5;
+              return this.setCache('order_shop_list', '');
+
+            case 5:
+              _context3.next = 7;
+              return this.setCache('order_shop_list', this.data.orderList[index].goods_info);
+
+            case 7:
+              wx.navigateTo({
+                url: '/pages/shopOrderList/shopOrderList'
+              });
+              _context3.next = 13;
+              break;
+
+            case 10:
+              _context3.prev = 10;
+              _context3.t0 = _context3["catch"](0);
+              console.log('goShopCarList error', _context3.t0);
+
+            case 13:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this, [[0, 10]]);
+    }));
+
+    function goShopOrderList(_x2) {
+      return _goShopOrderList.apply(this, arguments);
+    }
+
+    return goShopOrderList;
+  }(),
   _formatListData: function _formatListData(list) {
-    // 这么写也能修改原数组，因为对象数组中的对象是引用类型，两者指向同一个索引
+    // 这么写也能修改原数组，因为对象数组中的对象是引用类型，两者指向同一个堆内存
     return list.map(function (item) {
+      item.goods_info = JSON.parse(item.goods_info);
       item.moneyInt = '￥' + item.pay_price.split('.')[0] + '.';
       item.moneyCharge = item.pay_price.split('.')[1];
       return item;
@@ -342,7 +408,7 @@ Page({
 
     if (orderType === '3') {
       wx.navigateTo({
-        url: '/pages/shopSuccess/shopSuccess?orderid=' + id
+        url: '/pages/shopSuccess/shopSuccess?orderId=' + id
       });
       return;
     }

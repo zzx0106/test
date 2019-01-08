@@ -3,14 +3,6 @@ var regeneratorRuntime = require('../../common/lib/runtime.js');
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -52,23 +44,24 @@ Page({
                 submitGoods: submitGoods,
                 orderinfo: orderinfo
               });
-              shop_time = submitGoods.shopinfo.shop_time;
+              shop_time = parseInt(JSON.parse(submitGoods.shopinfo.shop_time).end_time);
               order_time = orderinfo.songdatime;
+              console.log('shop_time', shop_time);
               this.handlerTime(order_time, shop_time);
-              _context.next = 14;
+              _context.next = 15;
               break;
 
-            case 11:
-              _context.prev = 11;
+            case 12:
+              _context.prev = 12;
               _context.t0 = _context["catch"](0);
               console.log('shopDetail onload  error', _context.t0);
 
-            case 14:
+            case 15:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, this, [[0, 11]]);
+      }, _callee, this, [[0, 12]]);
     }));
 
     function onLoad(_x) {
@@ -91,43 +84,36 @@ Page({
     var _this$setData;
 
     var order_time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-    var shop_time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '0-24';
-
-    var _shop_time$split = shop_time.split('-'),
-        _shop_time$split2 = _slicedToArray(_shop_time$split, 2),
-        startTime = _shop_time$split2[0],
-        endTime = _shop_time$split2[1];
-
+    var end_time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
     var orderTime = new Date(order_time * 1000); // 服务器时间是以秒为单位，换算为毫秒
-    // let orderTime = new Date(); // 服务器时间是以秒为单位，换算为毫秒
 
-    var orderHour = parseFloat(orderTime.getHours());
-    var t = endTime - orderHour; // 剩余时间 h
+    var endTime = new Date(end_time * 1000); // 服务器时间是以秒为单位，换算为毫秒
+    // let orderTime = new Date(); // 服务器时间是以秒为单位，换算为毫秒
+    // let t = endTimeHour - orderHour; // 剩余时间 h
 
     var hours = [];
     var days = [];
-    t = t * 60; // 换算成分钟
+    var t = parseInt((end_time - order_time) / 60); // t = t * 60; // 换算成分钟
     // 第一次 耗时15分钟（此处为后端换算后返回前端，所以前端无需再算），
     // 往后推每次增加30分钟， 直到打烊为止。
 
     for (var i = 0; i < t; i += 30) {
-      var d = orderTime.addTime('n', i);
+      var d = orderTime.addTime('n', i); // if (parseInt(endTimeHour) > d.getHours()) {
 
-      if (parseInt(endTime) > d.getHours()) {
-        if (i === 0) {
-          hours.push({
-            time: parseInt(d.getTime() / 1000),
-            // 换算成秒
-            str: "\u5C3D\u5FEB\u9001\u8FBE(".concat(add0(d.getHours() + ''), ":").concat(add0(d.getMinutes() + ''), ")\u5DE6\u53F3")
-          });
-        } else {
-          hours.push({
-            time: parseInt(d.getTime() / 1000),
-            // 换算成秒
-            str: "".concat(add0(d.getHours() + ''), ":").concat(add0(d.getMinutes() + ''))
-          });
-        }
-      }
+      if (i === 0) {
+        hours.push({
+          time: parseInt(d.getTime() / 1000),
+          // 换算成秒
+          str: "\u5C3D\u5FEB\u9001\u8FBE(".concat(add0(d.getHours() + ''), ":").concat(add0(d.getMinutes() + ''), ")\u5DE6\u53F3")
+        });
+      } else {
+        hours.push({
+          time: parseInt(d.getTime() / 1000),
+          // 换算成秒
+          str: "".concat(add0(d.getHours() + ''), ":").concat(add0(d.getMinutes() + ''))
+        });
+      } // }
+
     }
 
     days.push(orderTime.day_mow()); // 目前只需要当天的
@@ -223,7 +209,7 @@ Page({
     regeneratorRuntime.mark(function _callee4() {
       var _this = this;
 
-      var _this$data, time_format, checkIndex, submitGoods, orderinfo, songdatime, res;
+      var _this$data, time_format, checkIndex, orderinfo, songdatime, res;
 
       return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
@@ -240,7 +226,7 @@ Page({
 
             case 3:
               this.submited = true;
-              _this$data = this.data, time_format = _this$data.time_format, checkIndex = _this$data.checkIndex, submitGoods = _this$data.submitGoods, orderinfo = _this$data.orderinfo;
+              _this$data = this.data, time_format = _this$data.time_format, checkIndex = _this$data.checkIndex, orderinfo = _this$data.orderinfo;
               songdatime = time_format.hours[checkIndex] && time_format.hours[checkIndex].time || orderinfo.songdatime;
               _context4.next = 8;
               return app.Util.turn2Promise(wx.login);
@@ -250,26 +236,18 @@ Page({
 
               if (res.code) {
                 app.$http.request('/consumer/orderpay', {
-                  orderinfo: JSON.stringify(orderinfo),
+                  orderId: orderinfo.id,
+                  total_price: orderinfo.total_price,
                   note_str: JSON.stringify({
                     note: this.data.remarks,
                     songdatime: songdatime
                   }),
-                  userinfo: JSON.stringify(submitGoods.userinfo),
-                  shopinfo: JSON.stringify(submitGoods.shopinfo),
                   code: res.code
                 }, 'post').then(function (res) {
                   console.log('api /consumer/orderpay', res);
 
                   if (res.jsapi) {
                     var params = JSON.parse(res.jsapi);
-                    console.log('------', {
-                      timeStamp: params.timeStamp,
-                      nonceStr: params.nonceStr,
-                      package: params.package,
-                      signType: params.signType,
-                      paySign: params.paySign
-                    });
                     wx.requestPayment({
                       timeStamp: params.timeStamp,
                       nonceStr: params.nonceStr,
@@ -277,8 +255,9 @@ Page({
                       signType: params.signType,
                       paySign: params.paySign,
                       success: function success(suc) {
+                        console.log('requestPayment success', suc);
                         wx.redirectTo({
-                          url: "/pages/shopSuccess/shopSuccess?orderid=".concat(res.order_id),
+                          url: "/pages/shopSuccess/shopSuccess?orderId=".concat(res.order_id),
                           complete: function complete() {
                             _this.submited = false;
                           }
@@ -295,6 +274,15 @@ Page({
                         }
 
                         console.log('requestPayment fail', error);
+                      },
+                      complete: function complete() {
+                        _this.submited = false;
+                        console.log('requestPayment complete'); // wx.redirectTo({
+                        //     url: `/pages/shopSuccess/shopSuccess?orderId=${res.order_id}`,
+                        //     complete: () => {
+                        //         this.submited = false;
+                        //     },
+                        // });
                       }
                     });
                   } else {
@@ -305,6 +293,9 @@ Page({
                       icon: 'none'
                     });
                   }
+                }).catch(function (err) {
+                  _this.submited = false;
+                  console.log('api /consumer/orderpay error', err);
                 });
               }
 

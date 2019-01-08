@@ -158,6 +158,8 @@ page {
 .page .card .proDetail .goods-img {
   width: 180rpx;
   height: 180rpx;
+  border-radius: 6rpx;
+  overflow: hidden;
 }
 
 .page .card .proDetail .goods-img image {
@@ -180,9 +182,112 @@ page {
   transform: translate(0, -50%);
 }
 
+.page .card .goods-list {
+  height: 166rpx;
+  border-radius: 16rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.page .card .goods-list .bg-gray {
+  background: #fafafa;
+}
+
+.page .card .goods-list .scroll-view-box {
+  height: 166rpx;
+  margin-right: 140rpx;
+  width: auto;
+}
+
+.page .card .goods-list .scroll-view-box .good-list-item {
+  width: 120rpx;
+  height: 120rpx;
+  margin: 20rpx;
+  display: inline-block;
+}
+
+.page .card .goods-list .scroll-view-box .good-list-item .item-img {
+  width: 100%;
+  border-radius: 6rpx;
+}
+
+.page .card .goods-list .scroll-view-box .good-one-list-item {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.page .card .goods-list .scroll-view-box .good-one-list-item .item-img {
+  border-radius: 6rpx;
+  width: 120rpx;
+  height: 120rpx;
+  margin: 20rpx;
+}
+
+.page .card .goods-list .scroll-view-box .good-one-list-item .right-item {
+  height: 120rpx;
+}
+
+.page .card .goods-list .scroll-view-box .good-one-list-item .right-item view {
+  color: #737373;
+  font-size: 22rpx;
+}
+
+.page .card .goods-list .scroll-view-box .good-one-list-item .right-item view:first-child {
+  color: #252525;
+  font-size: 26rpx;
+  margin-bottom: 20rpx;
+}
+
+.page .card .goods-list .next-one {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 140rpx;
+  height: 166rpx;
+  background: #fafafa;
+  color: #737373;
+  font-size: 24rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.page .card .goods-list .next-one text {
+  margin-right: 23rpx;
+  line-height: 0rpx;
+}
+
+.page .card .goods-list .next-one .icon-title2 {
+  width: 24rpx;
+  width: 24rpx;
+  height: 29rpx;
+  line-height: 0;
+}
+
+.page .card .goods-list .next-one .icon-title2 image {
+  width: 14rpx;
+}
+
 .page .card .chargeDes {
   line-height: 32rpx;
-  padding-bottom: 24rpx;
+  margin-top: 25rpx;
+  padding-bottom: 10rpx;
 }
 
 .page .card .chargeDes .time {
@@ -203,7 +308,7 @@ page {
 
 .page .card .wrap-btn {
   text-align: right;
-  padding: 20rpx 0;
+  padding: 10rpx 0 20rpx 0;
 }
 
 .page .card .wrap-btn .bn {

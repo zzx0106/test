@@ -19,7 +19,7 @@
             <!-- <scroll-view scroll-y class="class-page" bindscrolltoupper="topRefresh"> -->
             <view class=" wrap-content">
                 <block>
-                    <view class="card bg-fff" wx:for="{{list_handler.handler(currentPage, orderList)}}" wx:key="{{index}}">
+                    <view class="card bg-fff" wx:for="{{list_handler.handler(currentPage, orderList)}}" wx:key="{{index}}" bindtap="scanDetail" data-order-type="{{item.order_type}}" data-id="{{item.id}}">
                         <view class="title flex cm-border cm-border-bottom c-main lh-38">
                             <view class="head-img f-ft">
                                 <image src="{{item.logo_img}}" alt />
@@ -29,12 +29,34 @@
                                 {{item.real_status}}
                             </view>
                         </view>
-                        <view class="proDetail flex f-justify" bindtap="scanDetail" data-order-type="{{item.order_type}}" data-id="{{item.id}}">
+                        <view wx:if="{{item.order_type !== '3'}}" class="proDetail flex f-justify">
                             <view class="f-ft goods-img">
-                                <image src="{{img_handler.handler(item.goods_img)}}" alt />
+                                <image src="{{item.goods_img[0]}}" alt />
                             </view>
                             <view class="f-content goodsName">
                                 <text>{{item.goods_name}}</text>
+                            </view>
+                        </view>
+                        <view wx:if="{{item.order_type === '3'}}" class="goods-list">
+                            <scroll-view class="scroll-view-box {{ item.goods_info.length > 1 ? 'bg-gray' : ''}}" scroll-x>
+                                <view class="good-list-item" wx:if="{{foodsItem.num && item.goods_info.length > 1}}" wx:for-item="foodsItem" wx:for="{{item.goods_info}}" wx:key="{{foodsItem.id}}">
+                                    <image lazy-load="{{true}}" class="item-img" mode="widthFix" src="{{foodsItem.imgs[0]}}" />
+                                </view>
+                                <view class="good-one-list-item" wx:if="{{foodsItem.num && item.goods_info.length === 1}}" wx:for-item="foodsItem" wx:for="{{item.goods_info}}" wx:key="{{foodsItem.id}}">
+                                    <image lazy-load="{{true}}" class="item-img" mode="widthFix" src="{{foodsItem.imgs[0]}}" />
+                                    <view class="right-item">
+                                        <view>{{foodsItem.goods_name}}</view>
+                                        <!-- <view >{{foodsItem.goods_desc}}</view> -->
+                                        <view>单价 : ￥{{foodsItem.price}} / 份</view>
+                                        <view>数量 : {{foodsItem.num}}</view>
+                                    </view>
+                                </view>
+                            </scroll-view>
+                            <view data-index="{{index}}" catch:tap="goShopOrderList" wx:if="{{item.goods_info.length > 1}}" class="next-one">
+                                <text class="">共{{item.goods_info.length}}件</text>
+                                <view class="icon-title2">
+                                    <image mode="widthFix" src="../../common/img/icon_myself_enter@3x.png" />
+                                </view>
                             </view>
                         </view>
                         <view class="chargeDes flex justify cm-border cm-border-bottom">
@@ -47,7 +69,7 @@
                         </view>
                         <view class="wrap-btn flex f-end vertical {{item.goods_type === 2?'justify':''}}">
                             <count-down remaintime="{{item.remaintime}}" wx:if="{{item.goods_type === 2}}"></count-down>
-                            <view class="bn" bindtap="deleteGoods" data-id="{{item.id}}">删除订单</view>
+                            <view class="bn" catch:tap="deleteGoods" data-id="{{item.id}}">删除订单</view>
                         </view>
                     </view>
                     <view class="loading" wx:if="{{showLoadingText}}">正在载入更多...</view>
@@ -91,8 +113,8 @@
         } else {
             var new_list = [];
             for(var i = 0; i < list.length; i++) {
-                var order_type = list[i].order_type;
-                if(order_type === '5' || order_type === '6' || order_type === '7') {
+                var order_status = list[i].order_status;
+                if(order_status === '5' || order_status === '6' || order_status === '7') {
                     new_list.push(list[i]);
                 }
             }
@@ -100,4 +122,22 @@
         }
 	}
 	module.exports.handler = handler
+</wxs>
+<wxs module="shop_car_total">
+	function computed(goodsList){
+	    var totalNumber = 0;
+        var totalMoney = 0;
+        console.log('goodsList', goodsList)
+        goodsList.forEach(function (goods, index) {
+            goods.foods.forEach(function (food, _index) {
+                if (food.num) {
+                    totalNumber += food.num;
+                    totalMoney += food.num * food.price;
+                }
+            });
+        });
+        totalMoney = totalMoney.toFixed(2); // 处理小数精度问题
+		return {totalNumber, totalMoney}
+	}
+	module.exports.computed = computed
 </wxs>
